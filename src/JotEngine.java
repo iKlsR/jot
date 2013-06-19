@@ -41,6 +41,7 @@ public class JotEngine implements ActionListener, MouseListener {
         wc = new JotComponents();
 
         // the default tab
+        // ! don't add any settings here, default docs are in JotDocument
         JotDocument doc = new JotDocument();
         tabbedPane.addTab(doc.getName(), doc);
 

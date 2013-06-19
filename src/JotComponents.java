@@ -39,8 +39,9 @@ public class JotComponents {
         JMenuItem [] fileMenuItems = { newTab, open, save, saveAs, close, exit };
         JMenuItem [] editMenuItems = { undo, redo, copy, cut, paste };
         JMenuItem [] viewMenuItems = { fullScreen };
-        JMenuItem [] optionMenuItems = { toggleLineWrap,
-            hideMenuBar, hideConsole, indent2, indent4, indent8, hexToRGB
+        JMenuItem [] optionMenuItems = {
+            toggleLineWrap, hideMenuBar, hideConsole,
+            indent2, indent4, indent8, hexToRGB
         };
 
     public JotComponents() {
@@ -99,7 +100,6 @@ public class JotComponents {
             indentation.add(indent4);
             indentation.add(indent8);
         optionsMenu.add(hexToRGB);
-
         menuBar.add(optionsMenu);
     }
 }

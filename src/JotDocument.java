@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.io.*;
 import javax.swing.*;
+import javax.swing.text.*;
 
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
@@ -23,9 +24,13 @@ public class JotDocument extends RTextScrollPane {
         this.textArea.setCodeFoldingEnabled(true);
         this.textArea.setAntiAliasingEnabled(true);
         this.textArea.setLineWrap(true);
+        this.textArea.setTabSize(4);
+
+        // these are overwritten by the theme
         // this.textArea.setBackground(new Color(41, 49, 52));
         // this.textArea.setCurrentLineHighlightColor(new Color(47, 57, 60, 100));
-        this.textArea.setFont(new Font("Consolas", Font.PLAIN, 20));
+        this.textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 0x00));
+        this.textArea.setCaretStyle(RTextArea.INSERT_MODE, ConfigurableCaret.VERTICAL_LINE_STYLE);
 
         changeStyleViaThemeXml(this.textArea);
 
