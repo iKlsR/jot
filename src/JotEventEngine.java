@@ -12,6 +12,7 @@ import org.fife.ui.rsyntaxtextarea.*;
 public class JotEventEngine {
     public static boolean lineWrap = true;
     public static boolean fullScreen = false;
+    public static boolean menuBarVisible = true;
 
     // what?
     public class JU extends JotUtilities { }
@@ -69,6 +70,9 @@ public class JotEventEngine {
                 JotComponents.toggleLineWrap.setSelected(true);
                 wdoc.getText().setLineWrap(true);
             }
+        } else if (e.getActionCommand().equalsIgnoreCase ("hide menu")) {
+            // need to add KeyListener to toggle it back..
+            JotComponents.menuBar.setVisible(false);
         }
         // Tab Menu
         else if (e.getActionCommand().equalsIgnoreCase("tab width 2")) {

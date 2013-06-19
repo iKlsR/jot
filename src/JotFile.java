@@ -43,7 +43,7 @@ public class JotFile {
                 String fullPath = fd.getDirectory() + doc.getName();
                 JotEventEngine.updateNameJEE(fullPath + " - " + JotEngine.windowCaption);
                 // doc.setName(doc.getName());
-                System.out.println(doc.getName());
+                // System.out.println(doc.getName());
                 doc.setPath(fd.getDirectory());
 
                 // JotEngine.console.setText("OPENED: " + fullPath);
