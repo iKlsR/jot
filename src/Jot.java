@@ -11,7 +11,7 @@ public class Jot {
                     System.out.println(e.getMessage());
                     System.out.println("There was an error.");
                 }
-                new JotEngine().setVisible(true);
+                new JotEngine().frame.setVisible(true);
             }
         });
     }
