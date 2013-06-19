@@ -52,6 +52,7 @@ public class JotComponents {
     public static JMenu optionsMenu = new JMenu("Options");
         public static JMenuItem toggleLineWrap = new JRadioButtonMenuItem("Toggle Linewrap");
         public static JMenu indentation = new JMenu("Indentation");
+        ButtonGroup indentationGroup = new ButtonGroup();
         public static JMenuItem indent2 = new JRadioButtonMenuItem("Tab Width 2");
         public static JMenuItem indent4 = new JRadioButtonMenuItem("Tab Width 4");
         public static JMenuItem indent8 = new JRadioButtonMenuItem("Tab Width 8");
@@ -123,9 +124,12 @@ public class JotComponents {
         optionsMenu.setMnemonic('O');
         toggleLineWrap.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, Event.CTRL_MASK));
         optionsMenu.add(toggleLineWrap);
-            indentation.add(indent2);
-            indentation.add(indent4);
-            indentation.add(indent8);
+        indentationGroup.add(indent2);
+        indentationGroup.add(indent4);
+        indentationGroup.add(indent8);
+        indentation.add(indent2);
+        indentation.add(indent4);
+        indentation.add(indent8);
         optionsMenu.add(indentation);
         optionsMenu.add(hexToRGB);
         menuBar.add(optionsMenu);

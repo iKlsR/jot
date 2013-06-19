@@ -91,18 +91,10 @@ public class JotEventEngine {
         // Tab Menu
         else if (e.getActionCommand().equalsIgnoreCase("tab width 2")) {
             wdoc.getText().setTabSize(2);
-            JotComponents.indent4.setSelected(false);
-            JotComponents.indent8.setSelected(false);
-            System.out.println("asas");
         } else if (e.getActionCommand().equalsIgnoreCase("tab width 4")) {
             wdoc.getText().setTabSize(4);
-            // button groups
-            JotComponents.indent2.setSelected(false);
-            JotComponents.indent8.setSelected(false);
         } else if (e.getActionCommand().equalsIgnoreCase("tab width 8")) {
             wdoc.getText().setTabSize(8);
-            JotComponents.indent2.setSelected(false);
-            JotComponents.indent4.setSelected(false);
         } else if (e.getActionCommand().equalsIgnoreCase("hex to rgb")) {
             String str = wdoc.getText().getSelectedText();
             if (str != null) {
