@@ -3,7 +3,8 @@ JAVAC=javac
 all:
 	$(JAVAC) -classpath lib\rsyntaxtextarea.jar -d bin \
 	src\Jot.java src\JotEngine.java src\JotDocument.java \
-	src\JotComponents.java src\JotEventEngine.java src\JotFile.java
+	src\JotComponents.java src\JotEventEngine.java src\JotFile.java \
+	src\JotUtilities.java
 file:
 	$(JAVAC) -classpath lib\rsyntaxtextarea.jar src\JotFile.java -d bin
 engine:
