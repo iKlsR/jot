@@ -13,6 +13,9 @@ public class JotEventEngine {
     public static boolean lineWrap = true;
     public static boolean fullScreen = false;
 
+    // what?
+    public class JU extends JotUtilities { }
+
     public static void globalEvents(ActionEvent e) {
         // File Menu Items
         if (e.getActionCommand().equalsIgnoreCase("new file")) {
@@ -81,10 +84,15 @@ public class JotEventEngine {
             wdoc.getText().setTabSize(8);
             JotComponents.indent2.setSelected(false);
             JotComponents.indent4.setSelected(false);
+        } else if (e.getActionCommand().equalsIgnoreCase("hex to rgb")) {
+            String str = wdoc.getText().getSelectedText();
+            if (str != null) {
+                System.out.println("RGB: " + JU.hexToR(str) + ", " + JU.hexToG(str) + ", " + JU.hexToB(str));
+            }
         }
     }
 
     public static void updateNameJEE(String n) {
-        // JotEngine.home.setTitle(n);
+        JotEngine.frame.setTitle(n);
     }
 }
