@@ -15,13 +15,20 @@ public class JotComponents {
             super(title, nmemonic);
         }
 
+        JotMenuItem(String title, int nmemonic, int pWidth) {
+            super(title, nmemonic);
+            this.preferredWidth = pWidth;
+        }
+
+        private static int preferredWidth = 245;
+
         @Override
         public Dimension getPreferredSize() {
             Dimension preferred = super.getPreferredSize();
             Dimension minimum = getMinimumSize();
             Dimension maximum = getMaximumSize();
             // preferred.width = Math.min(Math.max(preferred.width, minimum.width), maximum.width);
-            preferred.width = 245;
+            preferred.width = preferredWidth;
             preferred.height = Math.min(Math.max(preferred.height, minimum.height), maximum.height);
             return preferred;
         }
@@ -31,7 +38,7 @@ public class JotComponents {
 
     public static JMenu fileMenu = new JMenu("File");
         public static JMenuItem newTab = new JotMenuItem("New File", KeyEvent.VK_N);
-        public static JMenuItem open = new JotMenuItem("Open", KeyEvent.VK_O);
+        public static JMenuItem open = new JotMenuItem("Open File", KeyEvent.VK_O);
         public static JMenuItem save = new JotMenuItem("Save", KeyEvent.VK_S);
         public static JMenuItem saveAs = new JotMenuItem("Save As", KeyEvent.VK_A);
         public static JMenuItem close = new JotMenuItem("Close File", KeyEvent.VK_C);
@@ -59,11 +66,11 @@ public class JotComponents {
         public static JMenuItem hexToRGB = new JotMenuItem("HEX to RGB");
 
     public static JPopupMenu tabPopupMenu = new JPopupMenu();
-        public static JMenuItem pClose = new JotMenuItem("Close");
-        public static JMenuItem pCloseAll = new JotMenuItem("Close All Except This");
-        public static JMenuItem pCloseAllToRight = new JotMenuItem("Close Tabs To The Right");
-        public static JMenuItem pNew = new JotMenuItem("New File");
-        public static JMenuItem pOpen = new JotMenuItem("Open File");
+        public static JotMenuItem pClose = new JotMenuItem("Close");
+        public static JotMenuItem pCloseAll = new JotMenuItem("Close All Except This");
+        public static JotMenuItem pCloseAllToRight = new JotMenuItem("Close Tabs To The Right");
+        public static JotMenuItem pNew = new JotMenuItem("New", KeyEvent.VK_N, 230);
+        public static JotMenuItem pOpen = new JotMenuItem("Open", KeyEvent.VK_O, 230);
 
         JMenuItem [] fileMenuItems = { newTab, open, save, saveAs, close, exit };
         JMenuItem [] editMenuItems = { undo, redo, copy, cut, paste };
@@ -71,7 +78,7 @@ public class JotComponents {
         JMenuItem [] optionMenuItems = { toggleLineWrap,
             indent2, indent4, indent8, hexToRGB
         };
-        JMenuItem [] tabPopupMenuItems = { pClose, pClose, pNew, pOpen, pCloseAllToRight };
+        JMenuItem [] tabPopupMenuItems = { pClose, pCloseAll, pCloseAllToRight, pNew, pOpen };
 
     public JotComponents() {
         ///////////////////////////////////////// Initialize ////////////////////////////////////////
@@ -140,6 +147,8 @@ public class JotComponents {
         tabPopupMenu.add(pCloseAllToRight);
         tabPopupMenu.addSeparator();
         tabPopupMenu.add(pNew);
+        pNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, Event.CTRL_MASK));
         tabPopupMenu.add(pOpen);
+        pOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Event.CTRL_MASK));
     }
 }

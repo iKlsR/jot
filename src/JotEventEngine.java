@@ -21,14 +21,14 @@ public class JotEventEngine {
         // File Menu Items
         if (e.getActionCommand().equalsIgnoreCase("new file")) {
             JotFile.newFile();
-        } else if (e.getActionCommand().equalsIgnoreCase("open")) {
+        } else if (e.getActionCommand().equalsIgnoreCase("open file")) {
            JotFile.openFile();
         } else if (e.getActionCommand().equalsIgnoreCase("save")) {
             JotFile.saveFile();
         } else if (e.getActionCommand().equalsIgnoreCase("save as")) {
             JotFile.saveFileAs();
         } else if (e.getActionCommand().equalsIgnoreCase("close file")) {
-            JotFile.closeFile();
+            JotFile.closeFile(1);
         } else if (e.getActionCommand().equalsIgnoreCase("exit")) {
             System.exit(0);
         }
@@ -100,6 +100,21 @@ public class JotEventEngine {
             if (str != null) {
                 System.out.println("RGB: " + JU.hexToR(str) + ", " + JU.hexToG(str) + ", " + JU.hexToB(str));
             }
+        }
+
+        // Tab Popup Menu
+        else if (e.getActionCommand().equalsIgnoreCase("close")) {
+            JotFile.closeFile(1);
+        } else if (e.getActionCommand().equalsIgnoreCase("close all except this")) {
+            JotFile.closeFile(2);
+        } else if (e.getActionCommand().equalsIgnoreCase("close tabs to the right")) {
+            JotFile.closeFile(3);
+        }
+        // While in this context, this has to be case sensitive.. else it will call the File Menu too
+        else if (e.getActionCommand().equalsIgnoreCase("new")) {
+            JotFile.newFile();
+        } else if (e.getActionCommand().equalsIgnoreCase("open")) {
+            JotFile.openFile();
         }
     }
 

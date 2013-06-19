@@ -100,26 +100,32 @@ public class JotFile {
         JotDocument wdoc = new JotDocument();
         wdoc.getText().addKeyListener(JotEngine.thisThis);
 
-        if (JotEngine.tabbedPane.getSelectedIndex() < 1) {
-            JotEngine.tabbedPane.insertTab(
-                wdoc.getName(), null, wdoc, wdoc.getName(), 0x00
-            );
-        } else {
+        if (JotEngine.tabbedPane.getSelectedIndex() <= 1) {
+            JotEngine.tabbedPane.insertTab(wdoc.getName(), null, wdoc, wdoc.getName(), 0);
+        } else if (JotEngine.tabbedPane.getSelectedIndex() > 1) {
             JotEngine.tabbedPane.insertTab(
                 wdoc.getName(), null, wdoc, wdoc.getName(), JotEngine.tabbedPane.getSelectedIndex() + 1
             );
             JotEngine.tabbedPane.setSelectedIndex(JotEngine.tabbedPane.getSelectedIndex() + 1);
+        } else {
+            return;
         }
     }
 
-    public static void closeFile() {
-        try {
-            JotEngine.tabbedPane.remove(JotEngine.tabbedPane.getSelectedIndex());
-            if ((JotEngine.tabbedPane.getTabCount()) == 0x00) {
-                JotEngine.tabbedPane.setVisible(false);
+    public static void closeFile(int MODE) {
+        if (MODE == 1) {
+            try {
+                JotEngine.tabbedPane.remove(JotEngine.tabbedPane.getSelectedIndex());
+                if ((JotEngine.tabbedPane.getTabCount()) == 0x00) {
+                    JotEngine.tabbedPane.setVisible(false);
+                }
+            } catch (IndexOutOfBoundsException ex) {
+                // JotEngine.console.setText("INFO: There are no more tabs to close!");
             }
-        } catch (IndexOutOfBoundsException ex) {
-            // JotEngine.console.setText("INFO: There are no more tabs to close!");
+        } else if (MODE == 2) {
+            // ...
+        } else if (MODE == 3) {
+            // ...
         }
     }
 }

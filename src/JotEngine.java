@@ -99,11 +99,13 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
         if (e.getButton() == MouseEvent.BUTTON3) {
             try {
                 String pTitle = tp.getTitleAt(ix);
-                System.out.println(tp.getTitleAt(ix));
+                // System.out.println(tp.getTitleAt(ix));
                 JotComponents.tabPopupMenu.show( (JTabbedPane) e.getComponent(), e.getX(), e.getY());
             } catch (ArrayIndexOutOfBoundsException ae) {
                 return;
             }
+        } else if (e.getButton() == MouseEvent.BUTTON2) {
+            JotFile.closeFile(1);
         }
     }
 
