@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class JotEngine implements ActionListener, MouseListener {
+public class JotEngine implements ActionListener, MouseListener, KeyListener {
     public static String appName = "Jot";
     public static String buildVersion = "0.0.1";
     public static String windowCaption = appName + " " + buildVersion;
@@ -17,7 +17,6 @@ public class JotEngine implements ActionListener, MouseListener {
     public JotComponents wc;
     public static Timer timer;
 
-    public static JotEngine home;
     public static JFrame frame;
 
     public static JTabbedPane tabbedPane;
@@ -30,27 +29,29 @@ public class JotEngine implements ActionListener, MouseListener {
         frame.setLayout(new BorderLayout());
         frame.setIconImage(new ImageIcon("res/icon.png").getImage());
 
-        home = this;
         init();
     }
 
     public void init() {
         tabbedPane = new JTabbedPane();
         tabbedPane.addMouseListener(this);
+        tabbedPane.addKeyListener(this);
         tabbedPane.setFocusable(false);
         wc = new JotComponents();
 
         // the default tab
-        // ! don't add any settings here, default docs are in JotDocument
+        // ! don't add any settings here, default settings are in JotDocument
         JotDocument doc = new JotDocument();
+        doc.getText().addKeyListener(this);
         tabbedPane.addTab(doc.getName(), doc);
 
         updateNameJE(doc.getName() + " - " + windowCaption);
 
-        for (JMenuItem jm : wc.fileMenuItems)   jm.addActionListener(this);
-        for (JMenuItem jm : wc.editMenuItems)   jm.addActionListener(this);
-        for (JMenuItem jm : wc.viewMenuItems)   jm.addActionListener(this);
-        for (JMenuItem jm : wc.optionMenuItems) jm.addActionListener(this);
+        for (JMenuItem jm : wc.fileMenuItems)       jm.addActionListener(this);
+        for (JMenuItem jm : wc.editMenuItems)       jm.addActionListener(this);
+        for (JMenuItem jm : wc.viewMenuItems)       jm.addActionListener(this);
+        for (JMenuItem jm : wc.optionMenuItems)     jm.addActionListener(this);
+        for (JMenuItem jm : wc.tabPopupMenuItems)   jm.addActionListener(this);
 
         // console = new JTextField("> ");
         // console.setBackground(new Color(41, 49, 52));
@@ -68,7 +69,7 @@ public class JotEngine implements ActionListener, MouseListener {
     }
 
     public void updateNameJE(String n) {
-        // this.setTitle(n);
+        this.frame.setTitle(n);
     }
 
     @Override
@@ -81,20 +82,52 @@ public class JotEngine implements ActionListener, MouseListener {
         }
     }
 
-    @Override
     public void mousePressed(MouseEvent e) {
     }
 
-    @Override
+    private int oldIx = -1;
     public void mouseReleased(MouseEvent e) {
+        JTabbedPane tp = (JTabbedPane) e.getSource();
+        int ix = tp.indexAtLocation( e.getX(), e.getY() );
+        // if (ix == oldIx) return;
+        // oldIx = ix;
+        // if (ix == -1) return;
+
+        if (e.getButton() == MouseEvent.BUTTON3) {
+            try {
+                String pTitle = tp.getTitleAt(ix);
+                System.out.println(tp.getTitleAt(ix));
+                JotComponents.tabPopupMenu.show( (JTabbedPane) e.getComponent(), e.getX(), e.getY());
+            } catch (ArrayIndexOutOfBoundsException ae) {
+                return;
+            }
+        }
     }
 
-    @Override
     public void mouseEntered(MouseEvent e) {
     }
 
-    @Override
     public void mouseExited(MouseEvent e) {
+    }
+
+    public void keyReleased(KeyEvent e) {
+    }
+
+    public void keyTyped(KeyEvent e) {
+    }
+
+    // this will get its own class? soon..
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_K && e.isControlDown() == true) {
+            if (JotEventEngine.menuBarVisible == true) {
+                JotComponents.menuBar.setVisible(false);
+                JotEventEngine.menuBarVisible = false;
+            } else if (JotEventEngine.menuBarVisible == false) {
+                JotComponents.menuBar.setVisible(true);
+                JotEventEngine.menuBarVisible = true;
+            }
+        }
     }
 
     public static void clearConsole(int seconds) {

@@ -36,6 +36,13 @@ public class JotComponents {
         public static JMenuItem indent8 = new JRadioButtonMenuItem("Tab Width 8");
         public static JMenuItem hexToRGB = new JMenuItem("HEX to RGB");
 
+    public static JPopupMenu tabPopupMenu = new JPopupMenu();
+        public static JMenuItem pClose = new JMenuItem("Close");
+        public static JMenuItem pCloseAll = new JMenuItem("Close All Except This");
+        public static JMenuItem pCloseAllToRight = new JMenuItem("Close Tabs To The Right");
+        public static JMenuItem pNew = new JMenuItem("New File");
+        public static JMenuItem pOpen = new JMenuItem("Open File");
+
         JMenuItem [] fileMenuItems = { newTab, open, save, saveAs, close, exit };
         JMenuItem [] editMenuItems = { undo, redo, copy, cut, paste };
         JMenuItem [] viewMenuItems = { fullScreen };
@@ -43,6 +50,7 @@ public class JotComponents {
             toggleLineWrap, hideMenuBar, hideConsole,
             indent2, indent4, indent8, hexToRGB
         };
+        JMenuItem [] tabPopupMenuItems = { pClose, pClose, pNew, pOpen, pCloseAllToRight };
 
     public JotComponents() {
         ///////////////////////////////////////// Initialize ////////////////////////////////////////
@@ -101,5 +109,13 @@ public class JotComponents {
             indentation.add(indent8);
         optionsMenu.add(hexToRGB);
         menuBar.add(optionsMenu);
+
+        ///////////////////////////////////////// Tab Popup Menu ////////////////////////////////////////
+        tabPopupMenu.add(pClose);
+        tabPopupMenu.add(pCloseAll);
+        tabPopupMenu.add(pCloseAllToRight);
+        tabPopupMenu.addSeparator();
+        tabPopupMenu.add(pNew);
+        tabPopupMenu.add(pOpen);
     }
 }
