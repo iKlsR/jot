@@ -108,7 +108,7 @@ public class JotEngine extends JFrame implements ActionListener, MouseListener {
         public void run() {
             // System.out.println("hello");
             // console.setText("> ");
-            timer.cancel();
+            // timer.cancel();
         }
     }
 }

@@ -21,10 +21,10 @@ public class JotDocument extends RTextScrollPane {
 
         this.textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_CPLUSPLUS);
         this.textArea.setCodeFoldingEnabled(true);
-        // this.textArea.setBackground(new Color(41, 49, 52));
         this.textArea.setAntiAliasingEnabled(true);
-        // this.textArea.setCurrentLineHighlightColor(new Color(47, 57, 60, 100));
         this.textArea.setLineWrap(true);
+        // this.textArea.setBackground(new Color(41, 49, 52));
+        // this.textArea.setCurrentLineHighlightColor(new Color(47, 57, 60, 100));
         this.textArea.setFont(new Font("Consolas", Font.PLAIN, 20));
 
         changeStyleViaThemeXml(this.textArea);
@@ -36,7 +36,7 @@ public class JotDocument extends RTextScrollPane {
         try {
             Theme theme = Theme.load(getClass().getResourceAsStream("themes/dark.xml"));
             theme.apply(txt);
-        } catch (IOException ioe) { // Never happens
+        } catch (IOException ioe) { // ...
             ioe.printStackTrace();
         }
     }

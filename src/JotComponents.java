@@ -36,7 +36,8 @@ public class JotComponents {
         JMenuItem [] fileMenuItems = { newTab, open, save, saveAs, close, exit };
         JMenuItem [] editMenuItems = { undo, redo, copy, cut, paste };
         JMenuItem [] optionMenuItems = { toggleLineWrap,
-            hideMenuBar, hideConsole, indent2, indent4, indent8, hexToRGB };
+            hideMenuBar, hideConsole, indent2, indent4, indent8, hexToRGB
+        };
 
     public JotComponents() {
         ///////////////////////////////////////// Initialize ////////////////////////////////////////

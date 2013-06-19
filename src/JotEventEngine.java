@@ -13,6 +13,7 @@ public class JotEventEngine {
     public static boolean lineWrap = true;
 
     public static void globalEvents(ActionEvent e) {
+        // File Menu Items
         if (e.getActionCommand().equalsIgnoreCase("new file")) {
 
         } else if (e.getActionCommand().equalsIgnoreCase("open")) {
@@ -22,16 +23,25 @@ public class JotEventEngine {
         } else if (e.getActionCommand().equalsIgnoreCase("save as")) {
             JotFile.saveFileAs();
         } else if (e.getActionCommand().equalsIgnoreCase("close file")) {
-            try {
-                JotEngine.tabbedPane.remove(JotEngine.tabbedPane.getSelectedIndex());
-                if ((JotEngine.tabbedPane.getTabCount()) == 0) {
-                    JotEngine.tabbedPane.setVisible(false);
-                }
-            } catch (IndexOutOfBoundsException ex) {
-                // JotEngine.console.setText("INFO: There are no more tabs to close!");
-            }
+
         } else if (e.getActionCommand().equalsIgnoreCase("exit")) {
             System.exit(0);
+        }
+
+        // Edit Menu Items
+
+        // Option Menu Items
+        JotDocument wdoc = (JotDocument) JotEngine.tabbedPane.getSelectedComponent();
+        if (e.getActionCommand().equalsIgnoreCase("toggle linewrap")) {
+            if (lineWrap == true) {
+                lineWrap = false;
+                JotComponents.toggleLineWrap.setSelected(false);
+                wdoc.getText().setLineWrap(false);
+            } else if (lineWrap == false) {
+                lineWrap = true;
+                JotComponents.toggleLineWrap.setSelected(true);
+                wdoc.getText().setLineWrap(true);
+            }
         }
     }
 
