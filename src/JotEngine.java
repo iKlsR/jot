@@ -18,6 +18,7 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
     public static Timer timer;
 
     public static JFrame frame;
+    public static JotEngine thisThis;
 
     public static JTabbedPane tabbedPane;
 
@@ -29,6 +30,7 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
         frame.setLayout(new BorderLayout());
         frame.setIconImage(new ImageIcon("res/icon.png").getImage());
 
+        thisThis = this;
         init();
     }
 
@@ -41,11 +43,12 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
 
         // the default tab
         // ! don't add any settings here, default settings are in JotDocument
-        JotDocument doc = new JotDocument();
-        doc.getText().addKeyListener(this);
-        tabbedPane.addTab(doc.getName(), doc);
+        // JotDocument doc = new JotDocument();
+        // doc.getText().addKeyListener(this);
+        // tabbedPane.addTab(doc.getName(), doc);
+        JotFile.newFile();
 
-        updateNameJE(doc.getName() + " - " + windowCaption);
+        // updateNameJE(doc.getName() + " - " + windowCaption);
 
         for (JMenuItem jm : wc.fileMenuItems)       jm.addActionListener(this);
         for (JMenuItem jm : wc.editMenuItems)       jm.addActionListener(this);

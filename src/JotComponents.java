@@ -6,48 +6,68 @@ import javax.swing.*;
 import javax.imageio.*;
 
 public class JotComponents {
+    private static class JotMenuItem extends JMenuItem {
+        JotMenuItem(String title) {
+            super(title);
+        }
+
+        JotMenuItem(String title, int nmemonic) {
+            super(title, nmemonic);
+        }
+
+        @Override
+        public Dimension getPreferredSize() {
+            Dimension preferred = super.getPreferredSize();
+            Dimension minimum = getMinimumSize();
+            Dimension maximum = getMaximumSize();
+            // preferred.width = Math.min(Math.max(preferred.width, minimum.width), maximum.width);
+            preferred.width = 245;
+            preferred.height = Math.min(Math.max(preferred.height, minimum.height), maximum.height);
+            return preferred;
+        }
+    }
+
     public static JMenuBar menuBar = new JMenuBar();
 
     public static JMenu fileMenu = new JMenu("File");
-        public static JMenuItem newTab = new JMenuItem("New File", KeyEvent.VK_N);
-        public static JMenuItem open = new JMenuItem("Open", KeyEvent.VK_O);
-        public static JMenuItem save = new JMenuItem("Save", KeyEvent.VK_S);
-        public static JMenuItem saveAs = new JMenuItem("Save As", KeyEvent.VK_A);
-        public static JMenuItem close = new JMenuItem("Close File", KeyEvent.VK_C);
-        public static JMenuItem exit = new JMenuItem("Exit", KeyEvent.VK_E);
+        public static JMenuItem newTab = new JotMenuItem("New File", KeyEvent.VK_N);
+        public static JMenuItem open = new JotMenuItem("Open", KeyEvent.VK_O);
+        public static JMenuItem save = new JotMenuItem("Save", KeyEvent.VK_S);
+        public static JMenuItem saveAs = new JotMenuItem("Save As", KeyEvent.VK_A);
+        public static JMenuItem close = new JotMenuItem("Close File", KeyEvent.VK_C);
+        public static JMenuItem exit = new JotMenuItem("Exit", KeyEvent.VK_E);
 
     public static JMenu editMenu = new JMenu("Edit");
-        public static JMenuItem undo = new JMenuItem("Undo", KeyEvent.VK_Z);
-        public static JMenuItem redo = new JMenuItem("Redo", KeyEvent.VK_Y);
-        public static JMenuItem copy = new JMenuItem("Copy", KeyEvent.VK_C);
-        public static JMenuItem cut = new JMenuItem("Cut", KeyEvent.VK_X);
-        public static JMenuItem paste = new JMenuItem("Paste", KeyEvent.VK_P);
+        public static JMenuItem undo = new JotMenuItem("Undo", KeyEvent.VK_Z);
+        public static JMenuItem redo = new JotMenuItem("Redo", KeyEvent.VK_Y);
+        public static JMenuItem copy = new JotMenuItem("Copy", KeyEvent.VK_C);
+        public static JMenuItem cut = new JotMenuItem("Cut", KeyEvent.VK_X);
+        public static JMenuItem paste = new JotMenuItem("Paste", KeyEvent.VK_P);
 
     public static JMenu viewMenu = new JMenu("View");
         public static JMenuItem fullScreen = new JRadioButtonMenuItem("Toggle Full Screen");
+        public static JMenuItem hideMenuBar = new JotMenuItem("Hide Menu", KeyEvent.VK_K);
+        public static JMenuItem hideConsole = new JotMenuItem("Hide Console", KeyEvent.VK_PERIOD);
 
     public static JMenu optionsMenu = new JMenu("Options");
         public static JMenuItem toggleLineWrap = new JRadioButtonMenuItem("Toggle Linewrap");
-        public static JMenuItem hideMenuBar = new JMenuItem("Hide Menu", KeyEvent.VK_K);
-        public static JMenuItem hideConsole = new JMenuItem("Hide Console", KeyEvent.VK_PERIOD);
-        public static JMenuItem indentation = new JMenu("Indentation");
+        public static JMenu indentation = new JMenu("Indentation");
         public static JMenuItem indent2 = new JRadioButtonMenuItem("Tab Width 2");
         public static JMenuItem indent4 = new JRadioButtonMenuItem("Tab Width 4");
         public static JMenuItem indent8 = new JRadioButtonMenuItem("Tab Width 8");
-        public static JMenuItem hexToRGB = new JMenuItem("HEX to RGB");
+        public static JMenuItem hexToRGB = new JotMenuItem("HEX to RGB");
 
     public static JPopupMenu tabPopupMenu = new JPopupMenu();
-        public static JMenuItem pClose = new JMenuItem("Close");
-        public static JMenuItem pCloseAll = new JMenuItem("Close All Except This");
-        public static JMenuItem pCloseAllToRight = new JMenuItem("Close Tabs To The Right");
-        public static JMenuItem pNew = new JMenuItem("New File");
-        public static JMenuItem pOpen = new JMenuItem("Open File");
+        public static JMenuItem pClose = new JotMenuItem("Close");
+        public static JMenuItem pCloseAll = new JotMenuItem("Close All Except This");
+        public static JMenuItem pCloseAllToRight = new JotMenuItem("Close Tabs To The Right");
+        public static JMenuItem pNew = new JotMenuItem("New File");
+        public static JMenuItem pOpen = new JotMenuItem("Open File");
 
         JMenuItem [] fileMenuItems = { newTab, open, save, saveAs, close, exit };
         JMenuItem [] editMenuItems = { undo, redo, copy, cut, paste };
-        JMenuItem [] viewMenuItems = { fullScreen };
-        JMenuItem [] optionMenuItems = {
-            toggleLineWrap, hideMenuBar, hideConsole,
+        JMenuItem [] viewMenuItems = { fullScreen, hideMenuBar, hideConsole };
+        JMenuItem [] optionMenuItems = { toggleLineWrap,
             indent2, indent4, indent8, hexToRGB
         };
         JMenuItem [] tabPopupMenuItems = { pClose, pClose, pNew, pOpen, pCloseAllToRight };
@@ -93,20 +113,20 @@ public class JotComponents {
         viewMenu.setMnemonic('V');
         // fullScreen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F12));
         viewMenu.add(fullScreen);
+        hideMenuBar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_K, Event.CTRL_MASK));
+        viewMenu.add(hideMenuBar);
+        hideConsole.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_PERIOD, Event.CTRL_MASK));
+        viewMenu.add(hideConsole);
         menuBar.add(viewMenu);
 
         ///////////////////////////////////////// Options Menu ////////////////////////////////////////
         optionsMenu.setMnemonic('O');
         toggleLineWrap.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, Event.CTRL_MASK));
         optionsMenu.add(toggleLineWrap);
-        hideMenuBar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_K, Event.CTRL_MASK));
-        optionsMenu.add(hideMenuBar);
-        hideConsole.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_PERIOD, Event.CTRL_MASK));
-        optionsMenu.add(hideConsole);
-        optionsMenu.add(indentation);
             indentation.add(indent2);
             indentation.add(indent4);
             indentation.add(indent8);
+        optionsMenu.add(indentation);
         optionsMenu.add(hexToRGB);
         menuBar.add(optionsMenu);
 

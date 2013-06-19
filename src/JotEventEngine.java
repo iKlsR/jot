@@ -20,7 +20,7 @@ public class JotEventEngine {
     public static void globalEvents(ActionEvent e) {
         // File Menu Items
         if (e.getActionCommand().equalsIgnoreCase("new file")) {
-
+            JotFile.newFile();
         } else if (e.getActionCommand().equalsIgnoreCase("open")) {
            JotFile.openFile();
         } else if (e.getActionCommand().equalsIgnoreCase("save")) {
@@ -28,12 +28,23 @@ public class JotEventEngine {
         } else if (e.getActionCommand().equalsIgnoreCase("save as")) {
             JotFile.saveFileAs();
         } else if (e.getActionCommand().equalsIgnoreCase("close file")) {
-
+            JotFile.closeFile();
         } else if (e.getActionCommand().equalsIgnoreCase("exit")) {
             System.exit(0);
         }
 
         // Edit Menu Items
+        if (e.getActionCommand().equalsIgnoreCase("undo")) {
+            // JotEngine.console.setText("ALERT: NOT YET IMPLEMENTED!");
+        } else if (e.getActionCommand().equalsIgnoreCase("redo")) {
+            // JotEngine.console.setText("ALERT: NOT YET IMPLEMENTED!");
+        } else if (e.getActionCommand().equalsIgnoreCase("copy")) {
+            // JotEngine.console.setText("ALERT: NOT YET IMPLEMENTED!");
+        } else if (e.getActionCommand().equalsIgnoreCase("cut")) {
+            // JotEngine.console.setText("ALERT: NOT YET IMPLEMENTED!");
+        } else if (e.getActionCommand().equalsIgnoreCase("paste")) {
+            // JotEngine.console.setText("ALERT: NOT YET IMPLEMENTED!");
+        }
 
         // View Menu Items
         if (e.getActionCommand().equalsIgnoreCase("toggle full screen")) {
@@ -55,6 +66,12 @@ public class JotEventEngine {
 
                 fullScreen = true;
                 JotComponents.fullScreen.setSelected(true);
+            } else if (e.getActionCommand().equalsIgnoreCase ("hide menu")) {
+                // need to add KeyListener to toggle it back..
+                JotComponents.menuBar.setVisible(false);
+            } else if (e.getActionCommand().equalsIgnoreCase ("hide console")) {
+                // need to add KeyListener to toggle it back..
+                // JotComponents.menuBar.setVisible(false);
             }
         }
 
@@ -70,9 +87,6 @@ public class JotEventEngine {
                 JotComponents.toggleLineWrap.setSelected(true);
                 wdoc.getText().setLineWrap(true);
             }
-        } else if (e.getActionCommand().equalsIgnoreCase ("hide menu")) {
-            // need to add KeyListener to toggle it back..
-            JotComponents.menuBar.setVisible(false);
         }
         // Tab Menu
         else if (e.getActionCommand().equalsIgnoreCase("tab width 2")) {
@@ -82,6 +96,7 @@ public class JotEventEngine {
             System.out.println("asas");
         } else if (e.getActionCommand().equalsIgnoreCase("tab width 4")) {
             wdoc.getText().setTabSize(4);
+            // button groups
             JotComponents.indent2.setSelected(false);
             JotComponents.indent8.setSelected(false);
         } else if (e.getActionCommand().equalsIgnoreCase("tab width 8")) {
