@@ -1,8 +1,8 @@
 #Install
 
-Run `./make` and then run the app from `java -classpath lib\rsyntaxtextarea.jar;bin. Jot`
+Run `make` and then run the app with `java -classpath lib\rsyntaxtextarea.jar;bin. Jot`
 
-The additional scripts serve no real purpose atm. On Windows, you can use `jot.bat` to run after compile.
+The additional scripts serve no real purpose atm. On Windows, you can use `jot.bat` to run after compile or slap together a portable jar with `make exec`.
 
 
 #Misc
@@ -11,7 +11,7 @@ I *know* what you are thinking.. another Java Text Editor.. yep. :)
 
 Jot is not the average `JTextArea` however and even though I can't dedicate much time to it atm, I plan to make this evolve into something useful eventually while learning Java.
 
-It is still very, very and I still cannot stress enough, *very* experimental. 
+It is still very, very and I still cannot stress enough, *very* experimental.
 Alot of it so far has just been hacked together, I sort of brainstorm and code at the same time.
 Currently, it is very limited in functionality, most of what is present is constant and there is no way yet to change it,
 the syntax, font etc. All will be addressed in due time.
