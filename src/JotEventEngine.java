@@ -11,6 +11,7 @@ import org.fife.ui.rsyntaxtextarea.*;
 
 public class JotEventEngine {
     public static boolean lineWrap = true;
+    public static boolean fullScreen = false;
 
     public static void globalEvents(ActionEvent e) {
         // File Menu Items
@@ -30,6 +31,29 @@ public class JotEventEngine {
 
         // Edit Menu Items
 
+        // View Menu Items
+        if (e.getActionCommand().equalsIgnoreCase("toggle full screen")) {
+            if (fullScreen == true) {
+                JotEngine.frame.dispose();
+                JotEngine.frame.setResizable(false);
+                JotEngine.frame.setUndecorated(false);
+                JotEngine.frame.setVisible(true);
+
+                fullScreen = false;
+                JotComponents.fullScreen.setSelected(false);
+            } else if (fullScreen == false) {
+                GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+                GraphicsDevice dev = env.getDefaultScreenDevice();
+                JotEngine.frame.dispose();
+                JotEngine.frame.setResizable(false);
+                JotEngine.frame.setUndecorated(true);
+                dev.setFullScreenWindow(JotEngine.frame);
+
+                fullScreen = true;
+                JotComponents.fullScreen.setSelected(true);
+            }
+        }
+
         // Option Menu Items
         JotDocument wdoc = (JotDocument) JotEngine.tabbedPane.getSelectedComponent();
         if (e.getActionCommand().equalsIgnoreCase("toggle linewrap")) {
@@ -46,6 +70,6 @@ public class JotEventEngine {
     }
 
     public static void updateNameJEE(String n) {
-        JotEngine.home.setTitle(n);
+        // JotEngine.home.setTitle(n);
     }
 }

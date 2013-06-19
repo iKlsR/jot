@@ -23,6 +23,9 @@ public class JotComponents {
         public static JMenuItem cut = new JMenuItem("Cut", KeyEvent.VK_X);
         public static JMenuItem paste = new JMenuItem("Paste", KeyEvent.VK_P);
 
+    public static JMenu viewMenu = new JMenu("View");
+        public static JMenuItem fullScreen = new JRadioButtonMenuItem("Toggle Full Screen");
+
     public static JMenu optionsMenu = new JMenu("Options");
         public static JMenuItem toggleLineWrap = new JRadioButtonMenuItem("Toggle Linewrap");
         public static JMenuItem hideMenuBar = new JMenuItem("Hide Menu", KeyEvent.VK_K);
@@ -35,6 +38,7 @@ public class JotComponents {
 
         JMenuItem [] fileMenuItems = { newTab, open, save, saveAs, close, exit };
         JMenuItem [] editMenuItems = { undo, redo, copy, cut, paste };
+        JMenuItem [] viewMenuItems = { fullScreen };
         JMenuItem [] optionMenuItems = { toggleLineWrap,
             hideMenuBar, hideConsole, indent2, indent4, indent8, hexToRGB
         };
@@ -75,6 +79,12 @@ public class JotComponents {
         paste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, Event.CTRL_MASK));
         editMenu.add(paste);
         menuBar.add(editMenu);
+
+        ///////////////////////////////////////// View Menu ////////////////////////////////////////
+        viewMenu.setMnemonic('V');
+        // fullScreen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F12));
+        viewMenu.add(fullScreen);
+        menuBar.add(viewMenu);
 
         ///////////////////////////////////////// Options Menu ////////////////////////////////////////
         optionsMenu.setMnemonic('O');

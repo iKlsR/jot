@@ -12,7 +12,7 @@ import org.fife.ui.rsyntaxtextarea.*;
 
 public class JotFile {
     public static void openFile() {
-        FileDialog fd = new FileDialog(JotEngine.home, "Open", FileDialog.LOAD);
+        FileDialog fd = new FileDialog(JotEngine.frame, "Open", FileDialog.LOAD);
         String homefolder = System.getProperty("user.home");
         fd.setDirectory(homefolder);
         fd.setVisible(true);
@@ -24,7 +24,7 @@ public class JotFile {
             File file = new File(fd.getFile());
 
             JotDocument doc = new JotDocument(file.getName(), new RSyntaxTextArea());
-            // doc.getText().addKeyListener(JotEngine.home);
+            // doc.getText().addKeyListener(JotEngine.frame);
             JotEngine.tabbedPane.addTab(doc.getName(), doc);
             JotEngine.tabbedPane.setSelectedIndex(JotEngine.tabbedPane.getTabCount() - 1);
 
@@ -70,7 +70,7 @@ public class JotFile {
     }
 
     public static void saveFileAs() {
-        FileDialog fd = new FileDialog(JotEngine.home, "Save File", FileDialog.SAVE);
+        FileDialog fd = new FileDialog(JotEngine.frame, "Save File", FileDialog.SAVE);
         fd.setVisible(true);
 
         if (fd.getFile() == null) {
