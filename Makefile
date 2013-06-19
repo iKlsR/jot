@@ -18,4 +18,4 @@ exec:
 	jar cmf MANIFEST jot.jar bin/*.class
 .PHONY clean:
 clean:
-	rm -f bin\*.class
+	rm -f bin/*.class
