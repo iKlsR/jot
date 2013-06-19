@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class JotEngine extends JFrame implements ActionListener, MouseListener {
+public class JotEngine implements ActionListener, MouseListener {
     public static String appName = "Jot";
     public static String buildVersion = "0.0.1";
     public static String windowCaption = appName + " " + buildVersion;
@@ -18,20 +18,19 @@ public class JotEngine extends JFrame implements ActionListener, MouseListener {
     public static Timer timer;
 
     public static JotEngine home;
+    public static JFrame frame;
 
     public static JTabbedPane tabbedPane;
 
     public JotEngine() {
-        super(windowCaption);
-        super.frameInit();
+        frame = new JFrame(windowCaption);
+        frame.setSize(defaultSize);
+        frame.setLocationByPlatform(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+        frame.setIconImage(new ImageIcon("res/icon.png").getImage());
 
-        setSize(defaultSize);
-        setLocationByPlatform(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
-
-        setIconImage(new ImageIcon("res/icon.png").getImage());
-
+        home = this;
         init();
     }
 
@@ -41,8 +40,6 @@ public class JotEngine extends JFrame implements ActionListener, MouseListener {
         tabbedPane.setFocusable(false);
         wc = new JotComponents();
 
-        home = this;
-
         // the default tab
         JotDocument doc = new JotDocument();
         tabbedPane.addTab(doc.getName(), doc);
@@ -51,6 +48,7 @@ public class JotEngine extends JFrame implements ActionListener, MouseListener {
 
         for (JMenuItem jm : wc.fileMenuItems)   jm.addActionListener(this);
         for (JMenuItem jm : wc.editMenuItems)   jm.addActionListener(this);
+        for (JMenuItem jm : wc.viewMenuItems)   jm.addActionListener(this);
         for (JMenuItem jm : wc.optionMenuItems) jm.addActionListener(this);
 
         // console = new JTextField("> ");
@@ -58,9 +56,9 @@ public class JotEngine extends JFrame implements ActionListener, MouseListener {
         // console.setForeground(new Color(232, 232, 211));
         // console.setFont(new Font("Consolas", Font.PLAIN, 20));
 
-        add(tabbedPane);
+        frame.add(tabbedPane);
         // add(console, BorderLayout.SOUTH);
-        setJMenuBar(JotComponents.menuBar);
+        frame.setJMenuBar(JotComponents.menuBar);
     }
 
     @Override
@@ -69,7 +67,7 @@ public class JotEngine extends JFrame implements ActionListener, MouseListener {
     }
 
     public void updateNameJE(String n) {
-        this.setTitle(n);
+        // this.setTitle(n);
     }
 
     @Override
