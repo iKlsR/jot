@@ -25,6 +25,8 @@ public class JotDocument extends RTextScrollPane {
         this.textArea.setAntiAliasingEnabled(true);
         this.textArea.setLineWrap(true);
         this.textArea.setTabSize(4);
+        // this.textArea.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 4, 4, 4));
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
         // these are overwritten by the theme
         // this.textArea.setBackground(new Color(41, 49, 52));
@@ -88,5 +90,9 @@ public class JotDocument extends RTextScrollPane {
     @Override
     public void setName(String n) {
         docName = n;
+    }
+
+    @Override public void setBorder(javax.swing.border.Border border) {
+        // ...
     }
 }

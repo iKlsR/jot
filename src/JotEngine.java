@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -10,7 +11,7 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
     public static String buildVersion = "0.0.1";
     public static String windowCaption = appName + " " + buildVersion;
 
-    // public static JTextField console;
+    public static JTextField console;
 
     Dimension defaultSize = new Dimension(1280, 640);
 
@@ -19,6 +20,7 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
 
     public static JFrame frame;
     public static JotEngine thisThis;
+    JPanel jp;
 
     public static JTabbedPane tabbedPane;
 
@@ -27,7 +29,7 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
         frame.setSize(defaultSize);
         frame.setLocationByPlatform(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
+        frame.setLayout(new BorderLayout(0, 0));
         frame.setIconImage(new ImageIcon("res/icon.png").getImage());
 
         thisThis = this;
@@ -41,14 +43,15 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
         tabbedPane.setFocusable(false);
         wc = new JotComponents();
 
+        jp = new JPanel();
+
         // the default tab
         // ! don't add any settings here, default settings are in JotDocument
-        // JotDocument doc = new JotDocument();
-        // doc.getText().addKeyListener(this);
-        // tabbedPane.addTab(doc.getName(), doc);
-        JotFile.newFile();
-
-        // updateNameJE(doc.getName() + " - " + windowCaption);
+        JotDocument doc = new JotDocument();
+        doc.getText().addKeyListener(this);
+        tabbedPane.addTab(doc.getName(), doc);
+        // JotFile.newFile();
+        updateNameJE(doc.getName() + " - " + windowCaption);
 
         for (JMenuItem jm : wc.fileMenuItems)       jm.addActionListener(this);
         for (JMenuItem jm : wc.editMenuItems)       jm.addActionListener(this);
@@ -56,13 +59,20 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
         for (JMenuItem jm : wc.optionMenuItems)     jm.addActionListener(this);
         for (JMenuItem jm : wc.tabPopupMenuItems)   jm.addActionListener(this);
 
-        // console = new JTextField("> ");
-        // console.setBackground(new Color(41, 49, 52));
-        // console.setForeground(new Color(232, 232, 211));
-        // console.setFont(new Font("Consolas", Font.PLAIN, 20));
+        console = new JTextField("> ");
+        console.setBackground(new Color(31, 39, 42));
+        console.setForeground(new Color(232, 232, 211));
+        console.setFont(new Font("Consolas", Font.PLAIN, 20));
+        console.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 4, 4, 4));
 
+        tabbedPane.setUI(new JotTabbedPaneUI());
+
+        // the foundation..
         frame.add(tabbedPane);
-        // add(console, BorderLayout.SOUTH);
+        jp.setLayout(new BorderLayout());
+        jp.add(new JLabel("this"), BorderLayout.NORTH);
+        jp.add(console, BorderLayout.SOUTH);
+        frame.add(jp, BorderLayout.SOUTH);
         frame.setJMenuBar(JotComponents.menuBar);
     }
 
