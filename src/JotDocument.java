@@ -23,12 +23,11 @@ public class JotDocument extends RTextScrollPane {
         this.docName = name;
         this.textArea = txt;
 
-        this.textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_CPLUSPLUS);
+        this.textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
         this.textArea.setCodeFoldingEnabled(true);
         this.textArea.setAntiAliasingEnabled(true);
         this.textArea.setLineWrap(true);
         this.textArea.setTabSize(4);
-        // this.textArea.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 4, 4, 4));
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
         // these are overwritten by the theme
@@ -40,7 +39,6 @@ public class JotDocument extends RTextScrollPane {
         this.textArea.setCaretStyle(RTextArea.INSERT_MODE, ConfigurableCaret.VERTICAL_LINE_STYLE);
 
         changeStyleViaThemeXml(this.textArea);
-
         setFoldIndicatorEnabled(true);
     }
 

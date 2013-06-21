@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Color;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
+import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
@@ -34,6 +36,8 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
     public static JotEngine thisThis;
     public static JotConsole console;
     public static JotStatusStrip statusStrip;
+    public static JotStatusStrip docInfoStrip;
+    public static JotStatusStrip langStrip;
 
     public JotEngine() {
         frame = new JFrame(windowCaption);
@@ -65,7 +69,11 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
         tabbedPane.addTab(doc.getName(), doc);
 
         updateNameJE(doc.getName() + " - " + windowCaption);
-        statusStrip = new JotStatusStrip(doc.getName());
+        statusStrip = new JotStatusStrip(doc.getName(), new Color(243, 156, 18));
+        docInfoStrip = new JotStatusStrip(
+            "  " + " Spaces (4)  Linewrap (On)  Lines (411)  Mode (Normal)", new Color(46, 204, 113)
+        );
+        langStrip = new JotStatusStrip("Java" + "  ", new Color(189, 195, 199));
 
         for (JMenuItem jm : wc.fileMenuItems)       jm.addActionListener(this);
         for (JMenuItem jm : wc.editMenuItems)       jm.addActionListener(this);
@@ -76,8 +84,12 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
         // the foundation..
         frame.add(tabbedPane);
         frame.setJMenuBar(JotComponents.menuBar);
-        jp.setLayout(new BorderLayout());
-        jp.add(statusStrip, BorderLayout.NORTH);
+        jp.setLayout(new BorderLayout()); //
+
+        jp.add(statusStrip, BorderLayout.WEST);
+        jp.add(docInfoStrip, BorderLayout.CENTER);
+        jp.add(langStrip, BorderLayout.EAST);
+
         jp.add(console, BorderLayout.SOUTH);
         frame.add(jp, BorderLayout.SOUTH);
     }

@@ -8,7 +8,6 @@ jot:
 	src\JotUtilities.java src\JotStatusStrip.java \
 	src\JotConsole.java
 build:
-	# a bit wonky atm..
 	jar cmf MANIFEST jot.jar bin/*.class
 .PHONY clean:
 clean:

@@ -11,13 +11,13 @@ public class JotStatusStrip extends JLabel {
     //     this(strip);
     // }
 
-    public JotStatusStrip(String s) {
-        super(s);
+    public JotStatusStrip(String s, Color c) {
+        super(" " + s);
         this.strip = s;
 
         setOpaque(true);
         setBackground(new Color(29, 29, 30));
-        setForeground(new Color(243, 156, 18));
+        setForeground(c);
         setFont(new Font("Consolas", Font.PLAIN, 20));
         setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
     }
