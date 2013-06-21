@@ -1,9 +1,17 @@
-import java.io.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import javax.swing.*;
-import javax.imageio.*;
+import java.awt.Dimension;
+import java.awt.Event;
+
+import java.awt.event.KeyEvent;
+
+import java.io.File;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.JMenuBar;
+import javax.swing.ButtonGroup;
+import javax.swing.KeyStroke;
+import javax.swing.JRadioButtonMenuItem;
 
 public class JotComponents {
     private static class JotMenuItem extends JMenuItem {

@@ -1,11 +1,10 @@
-import java.io.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import javax.imageio.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.text.Element;
+import java.awt.FileDialog;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
@@ -30,6 +29,10 @@ public class JotFile {
 
             String path = fd.getDirectory() + file.getName();
 
+            if (JotEngine.tabbedPane.isVisible() == false) {
+                JotEngine.tabbedPane.setVisible(true);
+            }
+
             try {
                 BufferedReader br = new BufferedReader(new FileReader(path));
                 String line;
@@ -42,6 +45,7 @@ public class JotFile {
 
                 String fullPath = fd.getDirectory() + doc.getName();
                 JotEventEngine.updateNameJEE(fullPath + " - " + JotEngine.windowCaption);
+                JotEngine.statusStrip.setText(doc.getName());
                 // doc.setName(doc.getName());
                 // System.out.println(doc.getName());
                 doc.setPath(fd.getDirectory());
@@ -87,6 +91,7 @@ public class JotFile {
 
             String fullPath = fd.getDirectory() + doc.getName();
             JotEventEngine.updateNameJEE(fullPath + " - " + JotEngine.windowCaption);
+            JotEngine.statusStrip.setText(doc.getName());
             doc.setPath(fd.getDirectory());
             // JotEngine.console.setText("WROTE: " + fullPath);
         }

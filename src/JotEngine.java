@@ -1,32 +1,44 @@
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JFrame;
+import javax.swing.JMenuItem;
+import javax.swing.ImageIcon;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class JotEngine implements ActionListener, MouseListener, KeyListener {
-    public static String appName = "Jot";
-    public static String buildVersion = "0.0.1";
+    private static String appName = "Jot";
+    private static String buildVersion = "0.0.1";
+    private static JPanel jp;
     public static String windowCaption = appName + " " + buildVersion;
-
-    public static JTextField console;
 
     Dimension defaultSize = new Dimension(1280, 640);
 
-    public JotComponents wc;
     public static Timer timer;
-
     public static JFrame frame;
-    public static JotEngine thisThis;
-    JPanel jp;
-
     public static JTabbedPane tabbedPane;
+
+    public static JotComponents wc;
+    public static JotEngine thisThis;
+    public static JotConsole console;
+    public static JotStatusStrip statusStrip;
 
     public JotEngine() {
         frame = new JFrame(windowCaption);
         frame.setSize(defaultSize);
+        frame.setResizable(true);
         frame.setLocationByPlatform(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout(0, 0));
@@ -41,17 +53,19 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
         tabbedPane.addMouseListener(this);
         tabbedPane.addKeyListener(this);
         tabbedPane.setFocusable(false);
+        tabbedPane.setUI(new JotTabbedPaneUI());
+
         wc = new JotComponents();
-
         jp = new JPanel();
+        console = new JotConsole("> ");
 
-        // the default tab
-        // ! don't add any settings here, default settings are in JotDocument
+        // the default tab, don't add any settings here, default settings are in JotDocument
         JotDocument doc = new JotDocument();
         doc.getText().addKeyListener(this);
         tabbedPane.addTab(doc.getName(), doc);
-        // JotFile.newFile();
+
         updateNameJE(doc.getName() + " - " + windowCaption);
+        statusStrip = new JotStatusStrip(doc.getName());
 
         for (JMenuItem jm : wc.fileMenuItems)       jm.addActionListener(this);
         for (JMenuItem jm : wc.editMenuItems)       jm.addActionListener(this);
@@ -59,21 +73,13 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
         for (JMenuItem jm : wc.optionMenuItems)     jm.addActionListener(this);
         for (JMenuItem jm : wc.tabPopupMenuItems)   jm.addActionListener(this);
 
-        console = new JTextField("> ");
-        console.setBackground(new Color(31, 39, 42));
-        console.setForeground(new Color(232, 232, 211));
-        console.setFont(new Font("Consolas", Font.PLAIN, 20));
-        console.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 4, 4, 4));
-
-        tabbedPane.setUI(new JotTabbedPaneUI());
-
         // the foundation..
         frame.add(tabbedPane);
+        frame.setJMenuBar(JotComponents.menuBar);
         jp.setLayout(new BorderLayout());
-        jp.add(new JLabel("this"), BorderLayout.NORTH);
+        jp.add(statusStrip, BorderLayout.NORTH);
         jp.add(console, BorderLayout.SOUTH);
         frame.add(jp, BorderLayout.SOUTH);
-        frame.setJMenuBar(JotComponents.menuBar);
     }
 
     @Override
@@ -93,12 +99,13 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
         } else {
             updateNameJE(doc.getPath() + doc.getName() + " - " + windowCaption);
         }
+        statusStrip.setText(doc.getName());
     }
 
     public void mousePressed(MouseEvent e) {
     }
 
-    private int oldIx = -1;
+    // private int oldIx = -1;
     public void mouseReleased(MouseEvent e) {
         JTabbedPane tp = (JTabbedPane) e.getSource();
         int ix = tp.indexAtLocation( e.getX(), e.getY() );
@@ -109,7 +116,6 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
         if (e.getButton() == MouseEvent.BUTTON3) {
             try {
                 String pTitle = tp.getTitleAt(ix);
-                // System.out.println(tp.getTitleAt(ix));
                 JotComponents.tabPopupMenu.show( (JTabbedPane) e.getComponent(), e.getX(), e.getY());
             } catch (ArrayIndexOutOfBoundsException ae) {
                 return;
@@ -131,7 +137,6 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
     public void keyTyped(KeyEvent e) {
     }
 
-    // this will get its own class? soon..
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_K && e.isControlDown() == true) {

@@ -1,10 +1,6 @@
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import javax.swing.*;
-
-import javax.swing.event.*;
-import javax.swing.text.Element;
+import java.awt.event.ActionEvent;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;

@@ -1,7 +1,10 @@
-import java.awt.*;
-import java.io.*;
-import javax.swing.*;
-import javax.swing.text.*;
+import java.awt.Font;
+import java.awt.Color;
+
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
@@ -78,18 +81,13 @@ public class JotDocument extends RTextScrollPane {
         path = p;
     }
 
-    public JTextArea getText() {
+    public RSyntaxTextArea getText() {
         return textArea;
     }
 
     @Override
     public String getName() {
         return docName;
-    }
-
-    @Override
-    public void setName(String n) {
-        docName = n;
     }
 
     @Override public void setBorder(javax.swing.border.Border border) {
