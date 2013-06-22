@@ -4,16 +4,16 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 
-public class JotStatusStrip extends JLabel {
-    private static String strip;
+// format
+// Spaces (4)
 
-    // public JotStatusStrip() {
-    //     this(strip);
-    // }
+public class JotStatusStrip extends JLabel {
+    public JotStatusStrip() {
+        this("", new Color(255, 255, 255, 255));
+    }
 
     public JotStatusStrip(String s, Color c) {
         super(" " + s);
-        this.strip = s;
 
         setOpaque(true);
         setBackground(new Color(29, 29, 30));
@@ -22,8 +22,7 @@ public class JotStatusStrip extends JLabel {
         setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
     }
 
-    // @Override
-    // public void setText(String s) {
-    //     this.strip = s;
-    // }
+    public void updateStrip(int spaces) {
+        setText("  " + "Spaces (" + spaces + ")");
+    }
 }

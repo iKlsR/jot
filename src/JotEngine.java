@@ -20,6 +20,9 @@ import javax.swing.plaf.basic.BasicTabbedPaneUI;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.fife.ui.rtextarea.*;
+import org.fife.ui.rsyntaxtextarea.*;
+
 public class JotEngine implements ActionListener, MouseListener, KeyListener {
     private static String appName = "Jot";
     private static String buildVersion = "0.0.1";
@@ -61,25 +64,29 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
 
         wc = new JotComponents();
         jp = new JPanel();
-        console = new JotConsole("> ");
+        console = new JotConsole("");
 
         // the default tab, don't add any settings here, default settings are in JotDocument
+        // really want to get rid of this, perhaps call all update functions from JotFile
         JotDocument doc = new JotDocument();
         doc.getText().addKeyListener(this);
+        console.addActionListener(this);
         tabbedPane.addTab(doc.getName(), doc);
 
         updateNameJE(doc.getName() + " - " + windowCaption);
-        statusStrip = new JotStatusStrip(doc.getName(), new Color(243, 156, 18));
-        docInfoStrip = new JotStatusStrip(
-            "  " + " Spaces (4)  Linewrap (On)  Lines (411)  Mode (Normal)", new Color(46, 204, 113)
-        );
-        langStrip = new JotStatusStrip("Java" + "  ", new Color(189, 195, 199));
+        statusStrip = new JotStatusStrip(" " + doc.getName(), new Color(243, 156, 18));
+
+        docInfoStrip = new JotStatusStrip(" ", new Color(39, 174, 96));
+        docInfoStrip.updateStrip(JotEventEngine.currentSpaces);
+
+        langStrip = new JotStatusStrip("Java" + " ", new Color(189, 195, 199));
 
         for (JMenuItem jm : wc.fileMenuItems)       jm.addActionListener(this);
         for (JMenuItem jm : wc.editMenuItems)       jm.addActionListener(this);
         for (JMenuItem jm : wc.viewMenuItems)       jm.addActionListener(this);
         for (JMenuItem jm : wc.optionMenuItems)     jm.addActionListener(this);
         for (JMenuItem jm : wc.tabPopupMenuItems)   jm.addActionListener(this);
+        for (JMenuItem jm : wc.docPopupMenuItems)   jm.addActionListener(this);
 
         // the foundation..
         frame.add(tabbedPane);
@@ -96,7 +103,7 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        JotEventEngine.globalEvents(e);
+        JotEventEngine.actionEvents(e);
     }
 
     public void updateNameJE(String n) {
@@ -105,61 +112,23 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        JotDocument doc = (JotDocument) tabbedPane.getSelectedComponent();
-        if (doc.getPath() == null) {
-            updateNameJE(doc.getName() + " - " + windowCaption);
-        } else {
-            updateNameJE(doc.getPath() + doc.getName() + " - " + windowCaption);
-        }
-        statusStrip.setText(doc.getName());
-    }
-
-    public void mousePressed(MouseEvent e) {
-    }
-
-    // private int oldIx = -1;
-    public void mouseReleased(MouseEvent e) {
-        JTabbedPane tp = (JTabbedPane) e.getSource();
-        int ix = tp.indexAtLocation( e.getX(), e.getY() );
-        // if (ix == oldIx) return;
-        // oldIx = ix;
-        // if (ix == -1) return;
-
-        if (e.getButton() == MouseEvent.BUTTON3) {
-            try {
-                String pTitle = tp.getTitleAt(ix);
-                JotComponents.tabPopupMenu.show( (JTabbedPane) e.getComponent(), e.getX(), e.getY());
-            } catch (ArrayIndexOutOfBoundsException ae) {
-                return;
-            }
-        } else if (e.getButton() == MouseEvent.BUTTON2) {
-            JotFile.closeFile(1);
-        }
-    }
-
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    public void mouseExited(MouseEvent e) {
-    }
-
-    public void keyReleased(KeyEvent e) {
-    }
-
-    public void keyTyped(KeyEvent e) {
+        JotEventEngine.mouseClickEvents(e);
     }
 
     @Override
+    public void mouseReleased(MouseEvent e) {
+        JotEventEngine.mouseReleasedEvents(e);
+    }
+
+    public void mousePressed(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) { }
+    public void mouseExited(MouseEvent e) { }
+    public void keyReleased(KeyEvent e) { }
+    public void keyTyped(KeyEvent e) { }
+
+    @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_K && e.isControlDown() == true) {
-            if (JotEventEngine.menuBarVisible == true) {
-                JotComponents.menuBar.setVisible(false);
-                JotEventEngine.menuBarVisible = false;
-            } else if (JotEventEngine.menuBarVisible == false) {
-                JotComponents.menuBar.setVisible(true);
-                JotEventEngine.menuBarVisible = true;
-            }
-        }
+        JotEventEngine.keyPressedEvents(e);
     }
 
     public static void clearConsole(int seconds) {

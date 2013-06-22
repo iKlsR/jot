@@ -38,6 +38,8 @@ public class JotDocument extends RTextScrollPane {
         // this needs to be configured some more..
         this.textArea.setCaretStyle(RTextArea.INSERT_MODE, ConfigurableCaret.VERTICAL_LINE_STYLE);
 
+        this.textArea.setPopupMenu(JotComponents.docPopupMenu);
+
         changeStyleViaThemeXml(this.textArea);
         setFoldIndicatorEnabled(true);
     }
@@ -81,6 +83,11 @@ public class JotDocument extends RTextScrollPane {
 
     public RSyntaxTextArea getText() {
         return textArea;
+    }
+
+    @Override
+    public void setName(String n) {
+        docName = n;
     }
 
     @Override

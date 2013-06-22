@@ -72,6 +72,8 @@ public class JotComponents {
         public static JMenuItem indent2 = new JRadioButtonMenuItem("Tab Width 2");
         public static JMenuItem indent4 = new JRadioButtonMenuItem("Tab Width 4");
         public static JMenuItem indent8 = new JRadioButtonMenuItem("Tab Width 8");
+        public static JMenuItem spacesToTabs = new JMenuItem("Convert Indentation to Tabs");
+        public static JMenuItem tabsToSpaces = new JMenuItem("Convert Indentation to Spaces");
         public static JMenuItem hexToRGB = new JotMenuItem("HEX to RGB");
 
     public static JPopupMenu tabPopupMenu = new JPopupMenu();
@@ -81,13 +83,21 @@ public class JotComponents {
         public static JotMenuItem pNew = new JotMenuItem("New", KeyEvent.VK_N, 230);
         public static JotMenuItem pOpen = new JotMenuItem("Open", KeyEvent.VK_O, 230);
 
+    public static JPopupMenu docPopupMenu = new JPopupMenu();
+        public static JMenuItem dCopy = new JotMenuItem("Copy", KeyEvent.VK_C, 230);
+        public static JMenuItem dCut = new JotMenuItem("Cut", KeyEvent.VK_X);
+        public static JMenuItem dPaste = new JotMenuItem("Paste", KeyEvent.VK_P);
+        public static JMenuItem dSelectAll = new JotMenuItem("Select All", KeyEvent.VK_A);
+
         JMenuItem [] fileMenuItems = { newTab, open, save, saveAs, close, exit };
         JMenuItem [] editMenuItems = { undo, redo, copy, cut, paste, selectAll };
         JMenuItem [] viewMenuItems = { fullScreen, hideMenuBar, hideConsole };
         JMenuItem [] optionMenuItems = { toggleLineWrap,
-            indent2, indent4, indent8, hexToRGB
+            indent2, indent4, indent8, hexToRGB,
+            spacesToTabs, tabsToSpaces
         };
         JMenuItem [] tabPopupMenuItems = { pClose, pCloseAll, pCloseAllToRight, pNew, pOpen };
+        JMenuItem [] docPopupMenuItems = { dCopy, dCut, dPaste, dSelectAll };
 
     public JotComponents() {
         ///////////////////////////////////////// Initialize ////////////////////////////////////////
@@ -149,6 +159,9 @@ public class JotComponents {
         indentation.add(indent2);
         indentation.add(indent4);
         indentation.add(indent8);
+        indentation.addSeparator();
+        indentation.add(spacesToTabs);
+        indentation.add(tabsToSpaces);
         optionsMenu.add(indentation);
         optionsMenu.add(hexToRGB);
         menuBar.add(optionsMenu);
@@ -162,5 +175,16 @@ public class JotComponents {
         pNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, Event.CTRL_MASK));
         tabPopupMenu.add(pOpen);
         pOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Event.CTRL_MASK));
+
+        ///////////////////////////////////////// Doc Popup Menu ////////////////////////////////////////
+        docPopupMenu.add(dCopy);
+        dCopy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, Event.CTRL_MASK));
+        docPopupMenu.add(dCut);
+        dCut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, Event.CTRL_MASK));
+        docPopupMenu.add(dPaste);
+        dPaste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, Event.CTRL_MASK));
+        docPopupMenu.addSeparator();
+        docPopupMenu.add(dSelectAll);
+        dSelectAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, Event.CTRL_MASK));
     }
 }

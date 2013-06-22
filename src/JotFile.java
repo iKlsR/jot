@@ -18,13 +18,11 @@ public class JotFile {
         fd.setVisible(true);
 
         if (fd.getFile() == null) {
-            // JotEngine.console.setText("ALERT: You didn't open anything..");
             JotEngine.clearConsole(2);
         } else {
             File file = new File(fd.getFile());
 
             JotDocument doc = new JotDocument(file.getName(), new RSyntaxTextArea());
-            // doc.getText().addKeyListener(JotEngine.frame);
             JotEngine.tabbedPane.addTab(doc.getName(), doc);
             JotEngine.tabbedPane.setSelectedIndex(JotEngine.tabbedPane.getTabCount() - 1);
 
@@ -46,17 +44,13 @@ public class JotFile {
 
                 String fullPath = fd.getDirectory() + doc.getName();
                 JotEventEngine.updateNameJEE(fullPath + " - " + JotEngine.windowCaption);
-                JotEngine.statusStrip.setText(doc.getName());
-                // doc.setName(doc.getName());
-                // System.out.println(doc.getName());
-                doc.setPath(fd.getDirectory());
+                JotEngine.statusStrip.setText(" " + doc.getName());
 
-                // JotEngine.console.setText("OPENED: " + fullPath);
-                // JotEngine.clearConsole(5);
+                doc.setPath(fd.getDirectory());
             } catch (FileNotFoundException e) {
-                // JotEngine.console.setText("INFO: The file was not found!");
+
             } catch (IOException e) {
-                // JotEngine.console.setText("ERROR: There was an error opening the file!");
+
             }
         }
     }
@@ -68,7 +62,6 @@ public class JotFile {
         String filePath = doc.getPath() + doc.getName();
         if (new File(filePath).isFile()) {
             doc.save2(doc.getPath());
-            // JotEngine.console.setText("UPDATED: " + filePath);
         } else {
             saveFileAs();
         }
@@ -79,12 +72,10 @@ public class JotFile {
         fd.setVisible(true);
 
         if (fd.getFile() == null) {
-            // JotEngine.console.setText("ALERT: You didn't save anything..");
-            JotEngine.clearConsole(2);
+
         } else {
             File file = new File(fd.getDirectory() + fd.getFile());
             JotDocument doc = (JotDocument) JotEngine.tabbedPane.getSelectedComponent();
-            // doc.textArea.addKeyListener(this);
             doc.saveAs(file.getAbsolutePath());
 
             doc.setName(fd.getFile());
@@ -92,9 +83,8 @@ public class JotFile {
 
             String fullPath = fd.getDirectory() + doc.getName();
             JotEventEngine.updateNameJEE(fullPath + " - " + JotEngine.windowCaption);
-            JotEngine.statusStrip.setText(doc.getName());
+            JotEngine.statusStrip.setText(" " + doc.getName());
             doc.setPath(fd.getDirectory());
-            // JotEngine.console.setText("WROTE: " + fullPath);
         }
     }
 
@@ -106,9 +96,10 @@ public class JotFile {
         JotDocument wdoc = new JotDocument();
         wdoc.getText().addKeyListener(JotEngine.thisThis);
 
-        if (JotEngine.tabbedPane.getSelectedIndex() <= 1) {
-            JotEngine.tabbedPane.insertTab(wdoc.getName(), null, wdoc, wdoc.getName(), 0);
-        } else if (JotEngine.tabbedPane.getSelectedIndex() > 1) {
+        if (JotEngine.tabbedPane.getSelectedIndex() == 0x00) {
+            JotEngine.tabbedPane.insertTab(wdoc.getName(), null, wdoc, wdoc.getName(), 1);
+            JotEngine.tabbedPane.setSelectedIndex(JotEngine.tabbedPane.getSelectedIndex() + 1);
+        } else if (JotEngine.tabbedPane.getSelectedIndex() > 0) {
             JotEngine.tabbedPane.insertTab(
                 wdoc.getName(), null, wdoc, wdoc.getName(), JotEngine.tabbedPane.getSelectedIndex() + 1
             );
@@ -126,7 +117,7 @@ public class JotFile {
                     JotEngine.tabbedPane.setVisible(false);
                 }
             } catch (IndexOutOfBoundsException ex) {
-                // JotEngine.console.setText("INFO: There are no more tabs to close!");
+
             }
         } else if (MODE == 2) {
             // ...

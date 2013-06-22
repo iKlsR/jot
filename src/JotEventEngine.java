@@ -13,6 +13,7 @@ public class JotEventEngine {
     public static boolean lineWrap = true;
     public static boolean fullScreen = false;
     public static boolean menuBarVisible = true;
+    public static boolean consoleVisible = true;
 
     public static int currentSpaces = 4;
 
@@ -38,9 +39,9 @@ public class JotEventEngine {
         // Edit Menu Items
         JotDocument wdoc = (JotDocument) JotEngine.tabbedPane.getSelectedComponent();
         if (e.getActionCommand().equalsIgnoreCase("undo")) {
-            // JotEngine.console.setText("ALERT: NOT YET IMPLEMENTED!");
+            wdoc.getText().undoLastAction();
         } else if (e.getActionCommand().equalsIgnoreCase("redo")) {
-            // JotEngine.console.setText("ALERT: NOT YET IMPLEMENTED!");
+            wdoc.getText().redoLastAction();
         } else if (e.getActionCommand().equalsIgnoreCase("copy")) {
             wdoc.getText().copy();
         } else if (e.getActionCommand().equalsIgnoreCase("cut")) {
@@ -71,12 +72,16 @@ public class JotEventEngine {
 
                 fullScreen = true;
                 JotComponents.fullScreen.setSelected(true);
-            } else if (e.getActionCommand().equalsIgnoreCase ("hide menu")) {
-                // need to add KeyListener to toggle it back..
-                JotComponents.menuBar.setVisible(false);
-            } else if (e.getActionCommand().equalsIgnoreCase ("hide console")) {
-                // need to add KeyListener to toggle it back..
-                // JotComponents.menuBar.setVisible(false);
+            }
+        } else if (e.getActionCommand().equalsIgnoreCase("hide menu")) {
+            JotComponents.menuBar.setVisible(false);
+        } else if (e.getActionCommand().equalsIgnoreCase("hide console")) {
+            if (consoleVisible == true) {
+                consoleVisible = false;
+                JotEngine.console.setVisible(false);
+            } else if (consoleVisible == false) {
+                consoleVisible = true;
+                JotEngine.console.setVisible(true);
             }
         }
 
@@ -103,10 +108,15 @@ public class JotEventEngine {
         } else if (e.getActionCommand().equalsIgnoreCase("tab width 8")) {
             wdoc.getText().setTabSize(8);
             JotEngine.docInfoStrip.updateStrip(8);
+        }  else if (e.getActionCommand().equalsIgnoreCase("convert indentation to tabs")) {
+            wdoc.getText().convertTabsToSpaces();
+        } else if (e.getActionCommand().equalsIgnoreCase("convert indentation to spaces")) {
+            wdoc.getText().convertSpacesToTabs();
         } else if (e.getActionCommand().equalsIgnoreCase("hex to rgb")) {
             String str = wdoc.getText().getSelectedText();
             if (str != null) {
-                System.out.println("RGB: " + JU.hexToR(str) + ", " + JU.hexToG(str) + ", " + JU.hexToB(str));
+                // System.out.println("RGB: " + JU.hexToR(str) + ", " + JU.hexToG(str) + ", " + JU.hexToB(str));
+                JotEngine.console.setText("(" + JU.hexToR(str) + ", " + JU.hexToG(str) + ", " + JU.hexToB(str) + ")");
             }
         }
 
