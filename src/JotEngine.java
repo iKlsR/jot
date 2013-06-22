@@ -16,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.ImageIcon;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,7 +25,7 @@ import java.util.TimerTask;
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
 
-public class JotEngine implements ActionListener, MouseListener, KeyListener {
+public class JotEngine implements ActionListener, MouseListener, KeyListener, DocumentListener {
     private static String appName = "Jot";
     private static String buildVersion = "0.0.1";
     private static JPanel jp;
@@ -40,6 +42,8 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
     public static JotConsole console;
     public static JotStatusStrip statusStrip;
     public static JotStatusStrip docInfoStrip;
+    public static JotStatusStrip tempStrip;
+    public static JotStatusStrip currentLN;
     public static JotStatusStrip langStrip;
 
     public JotEngine() {
@@ -70,14 +74,17 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
         // really want to get rid of this, perhaps call all update functions from JotFile
         JotDocument doc = new JotDocument();
         doc.getText().addKeyListener(this);
+        doc.getText().getDocument().addDocumentListener(this);
         console.addActionListener(this);
         tabbedPane.addTab(doc.getName(), doc);
 
         updateNameJE(doc.getName() + " - " + windowCaption);
         statusStrip = new JotStatusStrip(" " + doc.getName(), new Color(243, 156, 18));
+        currentLN = new JotStatusStrip("---/", new Color(236, 240, 241));
 
         docInfoStrip = new JotStatusStrip(" ", new Color(39, 174, 96));
         docInfoStrip.updateStrip(JotEventEngine.currentSpaces);
+        tempStrip = new JotStatusStrip("  ---", new Color(39, 174, 96));
 
         langStrip = new JotStatusStrip("Java" + " ", new Color(189, 195, 199));
 
@@ -94,7 +101,14 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
         jp.setLayout(new BorderLayout()); //
 
         jp.add(statusStrip, BorderLayout.WEST);
-        jp.add(docInfoStrip, BorderLayout.CENTER);
+
+        JPanel middle = new JPanel();
+        middle.setLayout(new BorderLayout());
+            middle.add(docInfoStrip, BorderLayout.WEST);
+            middle.add(tempStrip, BorderLayout.CENTER);
+            middle.add(currentLN, BorderLayout.EAST);
+        jp.add(middle, BorderLayout.CENTER);
+
         jp.add(langStrip, BorderLayout.EAST);
 
         jp.add(console, BorderLayout.SOUTH);
@@ -124,12 +138,28 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener {
     public void mouseEntered(MouseEvent e) { }
     public void mouseExited(MouseEvent e) { }
     public void keyReleased(KeyEvent e) { }
-    public void keyTyped(KeyEvent e) { }
+
+    public void keyTyped(KeyEvent e) {
+        JotEventEngine.keyTypedEvents(e);
+    }
 
     @Override
     public void keyPressed(KeyEvent e) {
         JotEventEngine.keyPressedEvents(e);
     }
+
+    public void changedUpdate(DocumentEvent e) { }
+
+    public void insertUpdate(DocumentEvent e) {
+        JotDocument doc = (JotDocument) JotEngine.tabbedPane.getSelectedComponent();
+        if (e.getType() == DocumentEvent.EventType.INSERT || e.getType() == DocumentEvent.EventType.REMOVE) {
+            // will use isDirty() eventually, for now this works..
+            statusStrip.setText(JotUtilities.DIRTY + doc.getName());
+        }
+    }
+
+    public void removeUpdate(DocumentEvent e) { }
+
 
     public static void clearConsole(int seconds) {
         timer = new Timer();

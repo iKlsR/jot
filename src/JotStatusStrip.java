@@ -19,7 +19,7 @@ public class JotStatusStrip extends JLabel {
         setBackground(new Color(29, 29, 30));
         setForeground(c);
         setFont(new Font("Consolas", Font.PLAIN, 20));
-        setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
     }
 
     public void updateStrip(int spaces) {

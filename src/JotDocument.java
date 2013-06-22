@@ -6,6 +6,8 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+import javax.swing.text.*;
+
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
 

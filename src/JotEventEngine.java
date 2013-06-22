@@ -5,6 +5,7 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
 import javax.swing.JTabbedPane;
+import javax.swing.JOptionPane;
 
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
@@ -113,10 +114,14 @@ public class JotEventEngine {
         } else if (e.getActionCommand().equalsIgnoreCase("convert indentation to spaces")) {
             wdoc.getText().convertSpacesToTabs();
         } else if (e.getActionCommand().equalsIgnoreCase("hex to rgb")) {
-            String str = wdoc.getText().getSelectedText();
+            String text = wdoc.getText().getSelectedText();
+            String str = JOptionPane.showInputDialog(
+                JotEngine.frame, "Enter the Hex Color: ", wdoc.getText().getSelectedText());
             if (str != null) {
-                // System.out.println("RGB: " + JU.hexToR(str) + ", " + JU.hexToG(str) + ", " + JU.hexToB(str));
                 JotEngine.console.setText("(" + JU.hexToR(str) + ", " + JU.hexToG(str) + ", " + JU.hexToB(str) + ")");
+                JOptionPane.showMessageDialog(JotEngine.frame,
+                    "(R: " + JU.hexToR(str) + ", G: " + JU.hexToG(str) + ", B: " + JU.hexToB(str) + ")",
+                    "RGB From HEX", 1);
             }
         }
 
@@ -161,10 +166,22 @@ public class JotEventEngine {
                 JotComponents.tabPopupMenu.show( (JTabbedPane) e.getComponent(), e.getX(), e.getY());
             } catch (ArrayIndexOutOfBoundsException ae) {
                 return;
-            }
+           }
         } else if (e.getButton() == MouseEvent.BUTTON2) {
             JotFile.closeFile(1);
         }
+    }
+
+    public static void keyTypedEvents(KeyEvent e) {
+        // if (e.getKeyCode() == KeyEvent.KEY_TYPED) {
+        //     JotDocument doc = (JotDocument) JotEngine.tabbedPane.getSelectedComponent();
+        //     if (JotFile.canvas.isDirty()) {
+        //         JotEngine.statusStrip.setText("*" + doc.getName());
+        //         System.out.println("dirty...");
+        //     } else {
+        //         System.out.println("aaa");
+        //     }
+        // }
     }
 
     public static void keyPressedEvents(KeyEvent e) {

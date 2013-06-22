@@ -11,6 +11,8 @@ import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
 
 public class JotFile {
+    // public static TextEditorPane canvas;
+
     public static void openFile() {
         FileDialog fd = new FileDialog(JotEngine.frame, "Open", FileDialog.LOAD);
         String homefolder = System.getProperty("user.home");
@@ -23,6 +25,7 @@ public class JotFile {
             File file = new File(fd.getFile());
 
             JotDocument doc = new JotDocument(file.getName(), new RSyntaxTextArea());
+            doc.getText().getDocument().addDocumentListener(JotEngine.thisThis);
             JotEngine.tabbedPane.addTab(doc.getName(), doc);
             JotEngine.tabbedPane.setSelectedIndex(JotEngine.tabbedPane.getTabCount() - 1);
 
@@ -44,9 +47,13 @@ public class JotFile {
 
                 String fullPath = fd.getDirectory() + doc.getName();
                 JotEventEngine.updateNameJEE(fullPath + " - " + JotEngine.windowCaption);
-                JotEngine.statusStrip.setText(" " + doc.getName());
+                JotEngine.statusStrip.setText(JotUtilities.CLEAN + doc.getName());
 
                 doc.setPath(fd.getDirectory());
+                System.out.println(fullPath);
+
+                // canvas = new TextEditorPane(TextEditorPane.OVERWRITE_MODE, true, FileLocation.create(fullPath), null);
+
             } catch (FileNotFoundException e) {
 
             } catch (IOException e) {
@@ -62,8 +69,10 @@ public class JotFile {
         String filePath = doc.getPath() + doc.getName();
         if (new File(filePath).isFile()) {
             doc.save2(doc.getPath());
+            JotEngine.statusStrip.setText(JotUtilities.CLEAN + doc.getName());
         } else {
             saveFileAs();
+            JotEngine.statusStrip.setText(JotUtilities.CLEAN + doc.getName());
         }
     }
 
@@ -83,7 +92,7 @@ public class JotFile {
 
             String fullPath = fd.getDirectory() + doc.getName();
             JotEventEngine.updateNameJEE(fullPath + " - " + JotEngine.windowCaption);
-            JotEngine.statusStrip.setText(" " + doc.getName());
+            JotEngine.statusStrip.setText(JotUtilities.CLEAN + doc.getName());
             doc.setPath(fd.getDirectory());
         }
     }
@@ -94,7 +103,9 @@ public class JotFile {
         }
 
         JotDocument wdoc = new JotDocument();
+        JotEngine.statusStrip.setText(JotUtilities.CLEAN + wdoc.getName());
         wdoc.getText().addKeyListener(JotEngine.thisThis);
+        wdoc.getText().getDocument().addDocumentListener(JotEngine.thisThis);
 
         if (JotEngine.tabbedPane.getSelectedIndex() == 0x00) {
             JotEngine.tabbedPane.insertTab(wdoc.getName(), null, wdoc, wdoc.getName(), 1);
