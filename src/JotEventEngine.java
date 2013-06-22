@@ -1,6 +1,10 @@
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+
+import javax.swing.JTabbedPane;
 
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
@@ -10,10 +14,12 @@ public class JotEventEngine {
     public static boolean fullScreen = false;
     public static boolean menuBarVisible = true;
 
+    public static int currentSpaces = 4;
+
     // what?
     public class JU extends JotUtilities { }
 
-    public static void globalEvents(ActionEvent e) {
+    public static void actionEvents(ActionEvent e) {
         // File Menu Items
         if (e.getActionCommand().equalsIgnoreCase("new file")) {
             JotFile.newFile();
@@ -30,16 +36,19 @@ public class JotEventEngine {
         }
 
         // Edit Menu Items
+        JotDocument wdoc = (JotDocument) JotEngine.tabbedPane.getSelectedComponent();
         if (e.getActionCommand().equalsIgnoreCase("undo")) {
             // JotEngine.console.setText("ALERT: NOT YET IMPLEMENTED!");
         } else if (e.getActionCommand().equalsIgnoreCase("redo")) {
             // JotEngine.console.setText("ALERT: NOT YET IMPLEMENTED!");
         } else if (e.getActionCommand().equalsIgnoreCase("copy")) {
-            // JotEngine.console.setText("ALERT: NOT YET IMPLEMENTED!");
+            wdoc.getText().copy();
         } else if (e.getActionCommand().equalsIgnoreCase("cut")) {
-            // JotEngine.console.setText("ALERT: NOT YET IMPLEMENTED!");
+            wdoc.getText().cut();
         } else if (e.getActionCommand().equalsIgnoreCase("paste")) {
-            // JotEngine.console.setText("ALERT: NOT YET IMPLEMENTED!");
+            wdoc.getText().paste();
+        } else if (e.getActionCommand().equalsIgnoreCase("select all")) {
+            wdoc.getText().selectAll();
         }
 
         // View Menu Items
@@ -72,7 +81,7 @@ public class JotEventEngine {
         }
 
         // Option Menu Items
-        JotDocument wdoc = (JotDocument) JotEngine.tabbedPane.getSelectedComponent();
+        // JotDocument wdoc = (JotDocument) JotEngine.tabbedPane.getSelectedComponent();
         if (e.getActionCommand().equalsIgnoreCase("toggle linewrap")) {
             if (lineWrap == true) {
                 lineWrap = false;
@@ -87,10 +96,13 @@ public class JotEventEngine {
         // Tab Menu
         else if (e.getActionCommand().equalsIgnoreCase("tab width 2")) {
             wdoc.getText().setTabSize(2);
+            JotEngine.docInfoStrip.updateStrip(2);
         } else if (e.getActionCommand().equalsIgnoreCase("tab width 4")) {
             wdoc.getText().setTabSize(4);
+            JotEngine.docInfoStrip.updateStrip(4);
         } else if (e.getActionCommand().equalsIgnoreCase("tab width 8")) {
             wdoc.getText().setTabSize(8);
+            JotEngine.docInfoStrip.updateStrip(8);
         } else if (e.getActionCommand().equalsIgnoreCase("hex to rgb")) {
             String str = wdoc.getText().getSelectedText();
             if (str != null) {
@@ -111,6 +123,49 @@ public class JotEventEngine {
             JotFile.newFile();
         } else if (e.getActionCommand().equalsIgnoreCase("open")) {
             JotFile.openFile();
+        }
+    }
+
+    public static void mouseClickEvents(MouseEvent e) {
+        JotDocument doc = (JotDocument) JotEngine.tabbedPane.getSelectedComponent();
+        if (doc.getPath() == null) {
+            updateNameJEE(doc.getName() + " - " + JotEngine.windowCaption);
+        } else {
+            updateNameJEE(doc.getPath() + doc.getName() + " - " + JotEngine.windowCaption);
+        }
+
+        JotEngine.statusStrip.setText(" " + doc.getName());
+    }
+
+    // private int oldIx = -1;
+    public static void mouseReleasedEvents(MouseEvent e) {
+        JTabbedPane tp = (JTabbedPane) e.getSource();
+        int ix = tp.indexAtLocation(e.getX(), e.getY());
+        // if (ix == oldIx) return;
+        // oldIx = ix;
+        // if (ix == -1) return;
+
+        if (e.getButton() == MouseEvent.BUTTON3) {
+            try {
+                String pTitle = tp.getTitleAt(ix);
+                JotComponents.tabPopupMenu.show( (JTabbedPane) e.getComponent(), e.getX(), e.getY());
+            } catch (ArrayIndexOutOfBoundsException ae) {
+                return;
+            }
+        } else if (e.getButton() == MouseEvent.BUTTON2) {
+            JotFile.closeFile(1);
+        }
+    }
+
+    public static void keyPressedEvents(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_K && e.isControlDown() == true) {
+            if (menuBarVisible == true) {
+                JotComponents.menuBar.setVisible(false);
+                menuBarVisible = false;
+            } else if (menuBarVisible == false) {
+                JotComponents.menuBar.setVisible(true);
+                menuBarVisible = true;
+            }
         }
     }
 

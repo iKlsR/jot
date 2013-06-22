@@ -58,6 +58,7 @@ public class JotComponents {
         public static JMenuItem copy = new JotMenuItem("Copy", KeyEvent.VK_C);
         public static JMenuItem cut = new JotMenuItem("Cut", KeyEvent.VK_X);
         public static JMenuItem paste = new JotMenuItem("Paste", KeyEvent.VK_P);
+        public static JMenuItem selectAll = new JotMenuItem("Select All", KeyEvent.VK_A);
 
     public static JMenu viewMenu = new JMenu("View");
         public static JMenuItem fullScreen = new JRadioButtonMenuItem("Toggle Full Screen");
@@ -81,7 +82,7 @@ public class JotComponents {
         public static JotMenuItem pOpen = new JotMenuItem("Open", KeyEvent.VK_O, 230);
 
         JMenuItem [] fileMenuItems = { newTab, open, save, saveAs, close, exit };
-        JMenuItem [] editMenuItems = { undo, redo, copy, cut, paste };
+        JMenuItem [] editMenuItems = { undo, redo, copy, cut, paste, selectAll };
         JMenuItem [] viewMenuItems = { fullScreen, hideMenuBar, hideConsole };
         JMenuItem [] optionMenuItems = { toggleLineWrap,
             indent2, indent4, indent8, hexToRGB
@@ -123,6 +124,9 @@ public class JotComponents {
         editMenu.add(cut);
         paste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, Event.CTRL_MASK));
         editMenu.add(paste);
+        editMenu.addSeparator();
+        selectAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, Event.CTRL_MASK));
+        editMenu.add(selectAll);
         menuBar.add(editMenu);
 
         ///////////////////////////////////////// View Menu ////////////////////////////////////////
