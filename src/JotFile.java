@@ -13,8 +13,6 @@ import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
 
 public class JotFile {
-    // public static TextEditorPane canvas;
-
     public static void openFile() {
         FileDialog fd = new FileDialog(JotEngine.frame, "Open", FileDialog.LOAD);
         String homefolder = System.getProperty("user.home");
@@ -27,7 +25,6 @@ public class JotFile {
             File file = new File(fd.getFile());
 
             String extension = JotUtilities.getExtension(file.getName());
-            System.out.println(extension);
 
             JotDocument doc =
             new JotDocument(file.getName(), new RSyntaxTextArea(), JotUtilities.applySyntax(extension));
@@ -58,8 +55,6 @@ public class JotFile {
 
                 doc.setPath(fd.getDirectory());
                 System.out.println(fullPath);
-
-                // canvas = new TextEditorPane(TextEditorPane.OVERWRITE_MODE, true, FileLocation.create(fullPath), null);
 
             } catch (FileNotFoundException e) {
 
@@ -98,6 +93,9 @@ public class JotFile {
 
             doc.setName(fd.getFile());
             JotEngine.tabbedPane.setTitleAt(JotEngine.tabbedPane.getSelectedIndex(), doc.caption());
+
+            String extension = JotUtilities.getExtension(file.getName());
+            JotUtilities.applySyntax(extension);
 
             String fullPath = fd.getDirectory() + doc.getName();
             JotEventEngine.updateNameJEE(fullPath + " - " + JotEngine.windowCaption);

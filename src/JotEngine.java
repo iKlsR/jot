@@ -84,11 +84,11 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
 
         updateNameJE(doc.getName() + " - " + windowCaption);
         statusStrip = new JotStatusStrip(" " + doc.caption(), new Color(243, 156, 18));
-        currentLN = new JotStatusStrip("---/", new Color(52, 152, 219));
+        currentLN = new JotStatusStrip("---/ ", new Color(52, 152, 219));
 
         docInfoStrip = new JotStatusStrip(" ", new Color(149, 165, 166));
         docInfoStrip.updateStrip(JotEventEngine.currentSpaces);
-        tempStrip = new JotStatusStrip("  ---", new Color(39, 174, 96));
+        tempStrip = new JotStatusStrip("  ---", new Color(149, 165, 166)); // temp
 
         langStrip = new JotStatusStrip("None" + " ", new Color(189, 195, 199));
 
