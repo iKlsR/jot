@@ -8,6 +8,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -25,7 +27,7 @@ import java.util.TimerTask;
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
 
-public class JotEngine implements ActionListener, MouseListener, KeyListener, DocumentListener {
+public class JotEngine implements ActionListener, MouseListener, KeyListener, DocumentListener, WindowListener {
     private static String appName = "Jot";
     private static String buildVersion = "0.0.1";
     private static JPanel jp;
@@ -56,6 +58,7 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
         frame.setIconImage(new ImageIcon("res/icon.png").getImage());
 
         thisThis = this;
+        frame.addWindowListener(this);
         init();
     }
 
@@ -65,6 +68,7 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
         tabbedPane.addKeyListener(this);
         tabbedPane.setFocusable(false);
         tabbedPane.setUI(new JotTabbedPaneUI());
+        tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 
         wc = new JotComponents();
         jp = new JPanel();
@@ -79,14 +83,14 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
         tabbedPane.addTab(doc.getName(), doc);
 
         updateNameJE(doc.getName() + " - " + windowCaption);
-        statusStrip = new JotStatusStrip(" " + doc.getName(), new Color(243, 156, 18));
-        currentLN = new JotStatusStrip("---/", new Color(236, 240, 241));
+        statusStrip = new JotStatusStrip(" " + doc.caption(), new Color(243, 156, 18));
+        currentLN = new JotStatusStrip("---/", new Color(52, 152, 219));
 
-        docInfoStrip = new JotStatusStrip(" ", new Color(39, 174, 96));
+        docInfoStrip = new JotStatusStrip(" ", new Color(149, 165, 166));
         docInfoStrip.updateStrip(JotEventEngine.currentSpaces);
         tempStrip = new JotStatusStrip("  ---", new Color(39, 174, 96));
 
-        langStrip = new JotStatusStrip("Java" + " ", new Color(189, 195, 199));
+        langStrip = new JotStatusStrip("None" + " ", new Color(189, 195, 199));
 
         for (JMenuItem jm : wc.fileMenuItems)       jm.addActionListener(this);
         for (JMenuItem jm : wc.editMenuItems)       jm.addActionListener(this);
@@ -155,6 +159,7 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
         if (e.getType() == DocumentEvent.EventType.INSERT || e.getType() == DocumentEvent.EventType.REMOVE) {
             // will use isDirty() eventually, for now this works..
             statusStrip.setText(JotUtilities.DIRTY + doc.getName());
+            doc.setDirty(true);
         }
     }
 
@@ -172,6 +177,19 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
             // System.out.println("hello");
             // console.setText("> ");
             // timer.cancel();
+        }
+    }
+    public void windowActivated(WindowEvent e) { }
+    public void windowClosed(WindowEvent e) { }
+    public void windowDeactivated(WindowEvent e) { }
+    public void windowDeiconified(WindowEvent e) { }
+    public void windowIconified(WindowEvent e) { }
+    public void windowOpened(WindowEvent e) { }
+
+    public void windowClosing(WindowEvent e) {
+        JotDocument doc = (JotDocument) JotEngine.tabbedPane.getSelectedComponent();
+        if (e.getID() == WindowEvent.WINDOW_CLOSING) {
+            JotFile.unsavedChanges();
         }
     }
 }

@@ -57,7 +57,7 @@ public class JotEventEngine {
         if (e.getActionCommand().equalsIgnoreCase("toggle full screen")) {
             if (fullScreen == true) {
                 JotEngine.frame.dispose();
-                JotEngine.frame.setResizable(false);
+                JotEngine.frame.setResizable(true);
                 JotEngine.frame.setUndecorated(false);
                 JotEngine.frame.setVisible(true);
 
@@ -172,17 +172,7 @@ public class JotEventEngine {
         }
     }
 
-    public static void keyTypedEvents(KeyEvent e) {
-        // if (e.getKeyCode() == KeyEvent.KEY_TYPED) {
-        //     JotDocument doc = (JotDocument) JotEngine.tabbedPane.getSelectedComponent();
-        //     if (JotFile.canvas.isDirty()) {
-        //         JotEngine.statusStrip.setText("*" + doc.getName());
-        //         System.out.println("dirty...");
-        //     } else {
-        //         System.out.println("aaa");
-        //     }
-        // }
-    }
+    public static void keyTypedEvents(KeyEvent e) { }
 
     public static void keyPressedEvents(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_K && e.isControlDown() == true) {

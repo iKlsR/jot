@@ -43,23 +43,26 @@ public class JotTabbedPaneUI extends BasicTabbedPaneUI {
 
         selectedColorSet = new ColorSet();
         selectedColorSet.topGradColor1 = new Color(233, 237, 248);
-        selectedColorSet.topGradColor2 = new Color(158, 199, 240);
+        selectedColorSet.topGradColor2 = new Color(202, 224, 246);
 
-        selectedColorSet.bottomGradColor1 = new Color(112, 173, 239);
+        selectedColorSet.bottomGradColor1 = new Color(202, 224, 246);
         selectedColorSet.bottomGradColor2 = new Color(183, 244, 253);
 
         defaultColorSet = new ColorSet();
-        defaultColorSet.topGradColor1 = new Color(253, 253, 253);
-        defaultColorSet.topGradColor2 = new Color(237, 237, 237);
+        defaultColorSet.topGradColor1 = new Color(250, 250, 250);
+        defaultColorSet.topGradColor2 = new Color(245, 245, 245);
 
-        defaultColorSet.bottomGradColor1 = new Color(222, 222, 222);
-        defaultColorSet.bottomGradColor2 = new Color(255, 255, 255);
+        defaultColorSet.bottomGradColor1 = new Color(245, 245, 245);
+        defaultColorSet.bottomGradColor2 = new Color(250, 250, 250);
+
+        // defaultColorSet.bottomGradColor1 = new Color(222, 222, 222);
+        // defaultColorSet.bottomGradColor2 = new Color(255, 255, 255);
 
         hoverColorSet = new ColorSet();
         hoverColorSet.topGradColor1 = new Color(244, 244, 244);
         hoverColorSet.topGradColor2 = new Color(223, 223, 223);
 
-        hoverColorSet.bottomGradColor1 = new Color(211, 211, 211);
+        hoverColorSet.bottomGradColor1 = new Color(223, 223, 223);
         hoverColorSet.bottomGradColor2 = new Color(235, 235, 235);
 
         maxTabHeight = 20;

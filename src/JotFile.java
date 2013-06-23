@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+import javax.swing.JOptionPane;
+
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
 
@@ -24,9 +26,13 @@ public class JotFile {
         } else {
             File file = new File(fd.getFile());
 
-            JotDocument doc = new JotDocument(file.getName(), new RSyntaxTextArea());
+            String extension = JotUtilities.getExtension(file.getName());
+            System.out.println(extension);
+
+            JotDocument doc =
+            new JotDocument(file.getName(), new RSyntaxTextArea(), JotUtilities.applySyntax(extension));
             doc.getText().getDocument().addDocumentListener(JotEngine.thisThis);
-            JotEngine.tabbedPane.addTab(doc.getName(), doc);
+            JotEngine.tabbedPane.addTab(doc.caption(), doc);
             JotEngine.tabbedPane.setSelectedIndex(JotEngine.tabbedPane.getTabCount() - 1);
 
             String path = fd.getDirectory() + file.getName();
@@ -48,6 +54,7 @@ public class JotFile {
                 String fullPath = fd.getDirectory() + doc.getName();
                 JotEventEngine.updateNameJEE(fullPath + " - " + JotEngine.windowCaption);
                 JotEngine.statusStrip.setText(JotUtilities.CLEAN + doc.getName());
+                doc.setDirty(false);
 
                 doc.setPath(fd.getDirectory());
                 System.out.println(fullPath);
@@ -70,9 +77,11 @@ public class JotFile {
         if (new File(filePath).isFile()) {
             doc.save2(doc.getPath());
             JotEngine.statusStrip.setText(JotUtilities.CLEAN + doc.getName());
+            doc.setDirty(false);
         } else {
             saveFileAs();
             JotEngine.statusStrip.setText(JotUtilities.CLEAN + doc.getName());
+            doc.setDirty(false);
         }
     }
 
@@ -88,11 +97,12 @@ public class JotFile {
             doc.saveAs(file.getAbsolutePath());
 
             doc.setName(fd.getFile());
-            JotEngine.tabbedPane.setTitleAt(JotEngine.tabbedPane.getSelectedIndex(), doc.getName());
+            JotEngine.tabbedPane.setTitleAt(JotEngine.tabbedPane.getSelectedIndex(), doc.caption());
 
             String fullPath = fd.getDirectory() + doc.getName();
             JotEventEngine.updateNameJEE(fullPath + " - " + JotEngine.windowCaption);
             JotEngine.statusStrip.setText(JotUtilities.CLEAN + doc.getName());
+            doc.setDirty(false);
             doc.setPath(fd.getDirectory());
         }
     }
@@ -104,6 +114,7 @@ public class JotFile {
 
         JotDocument wdoc = new JotDocument();
         JotEngine.statusStrip.setText(JotUtilities.CLEAN + wdoc.getName());
+        wdoc.setDirty(false);
         wdoc.getText().addKeyListener(JotEngine.thisThis);
         wdoc.getText().getDocument().addDocumentListener(JotEngine.thisThis);
 
@@ -116,11 +127,12 @@ public class JotFile {
             );
             JotEngine.tabbedPane.setSelectedIndex(JotEngine.tabbedPane.getSelectedIndex() + 1);
         } else {
-            return;
+            JotEngine.tabbedPane.insertTab(wdoc.getName(), null, wdoc, wdoc.getName(), 0x00);
         }
     }
 
     public static void closeFile(int MODE) {
+        JotDocument doc = (JotDocument) JotEngine.tabbedPane.getSelectedComponent();
         if (MODE == 1) {
             try {
                 JotEngine.tabbedPane.remove(JotEngine.tabbedPane.getSelectedIndex());
@@ -134,6 +146,22 @@ public class JotFile {
             // ...
         } else if (MODE == 3) {
             // ...
+        }
+    }
+
+    public static void unsavedChanges() {
+        JotDocument doc = (JotDocument) JotEngine.tabbedPane.getSelectedComponent();
+        if (doc.isDirty()) {
+        int n =
+        JOptionPane.showConfirmDialog(JotEngine.frame, "Unsaved Changes.. Save?", "Exit?", JOptionPane.YES_NO_OPTION);
+            if (n == JOptionPane.YES_OPTION) {
+                saveFile();
+                System.exit(0);
+            } else if (n == JOptionPane.NO_OPTION){
+                System.exit(0);
+            }
+        } else {
+            System.exit(0);
         }
     }
 }
