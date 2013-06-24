@@ -1,8 +1,8 @@
-#Install
+#Usage
 
 Run `make` and then run the app with `java -classpath lib\rsyntaxtextarea.jar;bin. Jot`
 
-The additional scripts serve no real purpose atm. On Windows, you can use `jot.bat` to run after compile or slap together a portable jar with `make exec`.
+The additional scripts serve no real purpose atm unless on Windows where you can use `jot.bat` to run after compile or slap together a portable jar with `make exec`.
 
 
 #Misc
@@ -26,8 +26,8 @@ It is under `/lib` along with its LICENSE.
 
 A few of the features that I have been working on that are coming along nicely are:
 - A mini prompt for typing commands *(I don't like mice..)*
-- Full screen view
-- Autodetect opened/saved syntax
+- <del>Full screen view</del>
+- <del>Autodetect opened/saved syntax</del>
 - Theme switching
 - Font changer
 - Autocomplete
@@ -37,4 +37,10 @@ and several other key features that any modern text editor has..
 
 I have never written an editor before, and to undertake such a project in a relatively new language is a bit much, I will try to update whenever I can.
 
+Earlier Days (pre v0.0.1)
+-
 ![jot!](http://f.cl.ly/items/1y430J3E3T2T243E3705/jotgui.png)
+
+v0.0.1 Release
+-
+![jot!](http://cl.ly/image/1y1P3q3n0U0f/gui-2.png)
