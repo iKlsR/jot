@@ -121,8 +121,7 @@ public class JotTabbedPaneUI extends BasicTabbedPaneUI {
 
     protected void paintTabArea(Graphics g, int tabPlacement, int selectedIndex) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setPaint(new GradientPaint(0, 0, defaultColorSet.topGradColor1, 0,
-                10, defaultColorSet.topGradColor2));
+        g2d.setPaint(new GradientPaint(0, 0, defaultColorSet.topGradColor1, 0, 10, defaultColorSet.topGradColor2));
         g2d.fillRect(0, 0, tabPane.getWidth(), 10);
 
         g2d.setPaint(

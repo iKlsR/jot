@@ -7,6 +7,7 @@
 <RSyntaxTheme version="1.0">
 
    <!-- Specify family="..." attribute to override system default monospaced. -->
+   <!-- do not change the baseFont !! bad things will happen -->
    <baseFont size="20"/>
 
    <!--  General editor colors. -->
@@ -26,8 +27,8 @@
    </secondaryLanguages>
 
    <!-- Gutter styling. -->
-   <gutterBorder color="81969A"/>
-   <lineNumbers fg="81969A"/>
+   <gutterBorder color="4A4F55"/>
+   <lineNumbers fg="4A4F55"/>
    <foldIndicator fg="6A8088" iconBg="2f383c"/>
    <iconRowHeader activeLineRange="3399ff"/>
 

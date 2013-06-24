@@ -88,6 +88,7 @@ public class JotComponents {
         public static JMenuItem dCut = new JotMenuItem("Cut", KeyEvent.VK_X);
         public static JMenuItem dPaste = new JotMenuItem("Paste", KeyEvent.VK_P);
         public static JMenuItem dSelectAll = new JotMenuItem("Select All", KeyEvent.VK_A);
+        public static JMenuItem dHexToRGB = new JotMenuItem("HEX to RGB");
 
         JMenuItem [] fileMenuItems = { newTab, open, save, saveAs, close, exit };
         JMenuItem [] editMenuItems = { undo, redo, copy, cut, paste, selectAll };
@@ -97,7 +98,7 @@ public class JotComponents {
             spacesToTabs, tabsToSpaces
         };
         JMenuItem [] tabPopupMenuItems = { pClose, pCloseAll, pCloseAllToRight, pNew, pOpen };
-        JMenuItem [] docPopupMenuItems = { dCopy, dCut, dPaste, dSelectAll };
+        JMenuItem [] docPopupMenuItems = { dCopy, dCut, dPaste, dSelectAll, dHexToRGB };
 
     public JotComponents() {
         ///////////////////////////////////////// Initialize ////////////////////////////////////////
@@ -186,5 +187,6 @@ public class JotComponents {
         docPopupMenu.addSeparator();
         docPopupMenu.add(dSelectAll);
         dSelectAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, Event.CTRL_MASK));
+        docPopupMenu.add(dHexToRGB);
     }
 }

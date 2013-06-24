@@ -33,7 +33,7 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
     private static JPanel jp;
     public static String windowCaption = appName + " " + buildVersion;
 
-    Dimension defaultSize = new Dimension(1280, 640);
+    Dimension defaultSize = new Dimension(1280, 650);
 
     public static Timer timer;
     public static JFrame frame;
@@ -179,6 +179,7 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
             // timer.cancel();
         }
     }
+
     public void windowActivated(WindowEvent e) { }
     public void windowClosed(WindowEvent e) { }
     public void windowDeactivated(WindowEvent e) { }

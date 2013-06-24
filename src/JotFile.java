@@ -20,7 +20,7 @@ public class JotFile {
         fd.setVisible(true);
 
         if (fd.getFile() == null) {
-            JotEngine.clearConsole(2);
+            // JotEngine.clearConsole(2);
         } else {
             File file = new File(fd.getFile());
 
@@ -28,6 +28,7 @@ public class JotFile {
 
             JotDocument doc =
             new JotDocument(file.getName(), new RSyntaxTextArea(), JotUtilities.applySyntax(extension));
+
             doc.getText().getDocument().addDocumentListener(JotEngine.thisThis);
             JotEngine.tabbedPane.addTab(doc.caption(), doc);
             JotEngine.tabbedPane.setSelectedIndex(JotEngine.tabbedPane.getTabCount() - 1);
@@ -54,7 +55,7 @@ public class JotFile {
                 doc.setDirty(false);
 
                 doc.setPath(fd.getDirectory());
-                System.out.println(fullPath);
+                // System.out.println(fullPath);
 
             } catch (FileNotFoundException e) {
 
@@ -95,6 +96,7 @@ public class JotFile {
             JotEngine.tabbedPane.setTitleAt(JotEngine.tabbedPane.getSelectedIndex(), doc.caption());
 
             String extension = JotUtilities.getExtension(file.getName());
+            doc.getText().setSyntaxEditingStyle(JotUtilities.applySyntax(extension));
             JotUtilities.applySyntax(extension);
 
             String fullPath = fd.getDirectory() + doc.getName();

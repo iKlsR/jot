@@ -52,7 +52,7 @@ public class JotUtilities {
             case "hxx":
             case "cxx":
             case "cpp":
-            case "cx":
+            case "cc":
                 syntax = SyntaxConstants.SYNTAX_STYLE_CPLUSPLUS;
                 JotEngine.langStrip.setText("C++" + " ");
             break;

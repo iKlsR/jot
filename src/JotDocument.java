@@ -10,7 +10,7 @@ import java.io.FileInputStream;
 
 import java.awt.GraphicsEnvironment;
 
-import javax.swing.text.*;
+// import javax.swing.text.*;
 
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
@@ -38,13 +38,6 @@ public class JotDocument extends RTextScrollPane {
         this.textArea.setTabSize(4);
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-        // these are overwritten by the theme
-        // this.textArea.setBackground(new Color(41, 49, 52));
-        // this.textArea.setCurrentLineHighlightColor(new Color(47, 57, 60, 100));
-
-        // this.textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 0x00));
-        // this.textArea.setFont(new Font(defaultFont));
-
         // this needs to be configured some more..
         this.textArea.setCaretStyle(RTextArea.INSERT_MODE, ConfigurableCaret.VERTICAL_LINE_STYLE);
 
@@ -55,7 +48,8 @@ public class JotDocument extends RTextScrollPane {
 
         try {
             Font f =
-            Font.createFont(Font.TRUETYPE_FONT, new File("res/font/UbuntuMono-R.ttf")).deriveFont(Font.TRUETYPE_FONT, 20);
+            Font.createFont(
+                Font.TRUETYPE_FONT, new File("res/font/UbuntuMono-R.ttf")).deriveFont(Font.TRUETYPE_FONT, 20);
             this.textArea.setFont(f);
         } catch (Exception e) {
             System.out.println(e.getMessage());
