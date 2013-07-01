@@ -11,6 +11,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
@@ -99,8 +100,12 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
         for (JMenuItem jm : wc.tabPopupMenuItems)   jm.addActionListener(this);
         for (JMenuItem jm : wc.docPopupMenuItems)   jm.addActionListener(this);
 
+        foundation();
+    }
+
+    public void foundation() {
         // the foundation..
-        frame.add(tabbedPane);
+        // frame.add(tabbedPane);
         frame.setJMenuBar(JotComponents.menuBar);
         jp.setLayout(new BorderLayout()); //
 
@@ -116,7 +121,19 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
         jp.add(langStrip, BorderLayout.EAST);
 
         jp.add(console, BorderLayout.SOUTH);
-        frame.add(jp, BorderLayout.SOUTH);
+
+        JPanel cont = new JPanel();
+        cont.setLayout(new BorderLayout());
+        cont.add(tabbedPane);
+        cont.add(jp, BorderLayout.SOUTH);
+
+        JList sidebar = new JList();
+        sidebar.setBackground(new Color(30, 30, 30));
+        sidebar.setForeground(Color.WHITE);
+
+        // frame.add(cont);
+        // frame.add(jp, BorderLayout.SOUTH);
+        frame.add(new JotSplitPane(sidebar, cont, 200, 2, false));
     }
 
     @Override

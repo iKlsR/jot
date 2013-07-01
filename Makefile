@@ -6,9 +6,7 @@ jot:
 	src/JotEventEngine.java src/JotFile.java \
 	src/JotDocument.java src/JotTabbedPaneUI.java \
 	src/JotUtilities.java src/JotStatusStrip.java \
-	src/JotConsole.java
-build:
-	jar cmf MANIFEST jot.jar bin/*.class
+	src/JotConsole.java src/JotSplitPane.java
 .PHONY clean:
 clean:
 	rm -f bin/*.class

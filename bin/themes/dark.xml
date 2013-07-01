@@ -11,7 +11,7 @@
    <baseFont size="20"/>
 
    <!--  General editor colors. -->
-   <background color="293134"/>
+   <background color="26292C"/>
    <caret color="c1cbc2"/>
    <selection bg="404E51" roundedEdges="false"/>
    <currentLineHighlight color="2F393C" fade="false"/>
