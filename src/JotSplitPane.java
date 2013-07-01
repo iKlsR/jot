@@ -114,6 +114,9 @@ public class JotSplitPane extends JComponent implements MouseMotionListener, Mou
             dividerX = Math.max(0, Math.min((isVertical ? getHeight() : getWidth()) - dividerWidth, dividerX));
             updateComponentSize();
         }
+
+        // a fix?
+        JotEngine.frame.revalidate();
     }
 
     public void setRight(Component newRight) {

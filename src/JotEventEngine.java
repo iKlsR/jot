@@ -84,6 +84,9 @@ public class JotEventEngine {
                 consoleVisible = true;
                 JotEngine.console.setVisible(true);
             }
+
+            // a fix?
+            JotEngine.frame.revalidate();
         }
 
         // Option Menu Items
