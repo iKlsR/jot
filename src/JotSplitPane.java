@@ -33,10 +33,10 @@ public class JotSplitPane extends JComponent implements MouseMotionListener, Mou
     private boolean isHover;
     private boolean isVertical;
 
-    public static final Color HOVER_COLOUR    = new Color(27, 27, 27);
-    public static final Color HOVER_COLOUR2   = new Color(112, 112, 112);
+    public static final Color HOVER_COLOUR    = new Color(30, 30, 30);
+    public static final Color HOVER_COLOUR2   = new Color(25, 25, 25);
     public static final Color DIVIDER_COLOUR  = new Color(25, 25, 25);
-    public static final Color DIVIDER_COLOUR2 = new Color(110, 110, 110);
+    public static final Color DIVIDER_COLOUR2 = new Color(25, 25, 25);
 
     public JotSplitPane(Component left, Component right, int dividerX, int dividerWidth) {
         this(left, right, dividerX, dividerWidth, false);
@@ -54,8 +54,7 @@ public class JotSplitPane extends JComponent implements MouseMotionListener, Mou
                 if (isHover) {
                     g2.setPaint(new GradientPaint(0, 0, HOVER_COLOUR, isVertical ? 0 : getWidth(),
                         isVertical ? getHeight() : 0, HOVER_COLOUR2));
-                }
-                else {
+                } else {
                     g2.setPaint(new GradientPaint(0, 0, DIVIDER_COLOUR, isVertical ? 0 : getWidth(),
                         isVertical ? getHeight() : 0, DIVIDER_COLOUR2));
                 }
