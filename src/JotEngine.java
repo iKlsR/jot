@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Color;
+import java.awt.Font;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.DefaultListModel;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -34,7 +36,8 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
     private static JPanel jp;
     public static String windowCaption = appName + " " + buildVersion;
 
-    Dimension defaultSize = new Dimension(1280, 650);
+    // Dimension defaultSize = new Dimension(1280, 650);
+    Dimension defaultSize = new Dimension(1366, 720);
 
     public static Timer timer;
     public static JFrame frame;
@@ -49,11 +52,15 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
     public static JotStatusStrip currentLN;
     public static JotStatusStrip langStrip;
 
+    public static DefaultListModel<String> listModel;
+    public static JotSideBar<String> sidebar;
+
     public JotEngine() {
         frame = new JFrame(windowCaption);
         frame.setSize(defaultSize);
         frame.setResizable(true);
-        frame.setLocationByPlatform(true);
+        // frame.setLocationByPlatform(true);
+        frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout(0, 0));
         frame.setIconImage(new ImageIcon("res/icon.png").getImage());
@@ -74,14 +81,24 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
         wc = new JotComponents();
         jp = new JPanel();
         console = new JotConsole("");
+        console.setVisible(false);
+
+        // this needs its own file soon..
+        listModel = new DefaultListModel<String>();
+        sidebar = new JotSideBar<String>(listModel);
 
         // the default tab, don't add any settings here, default settings are in JotDocument
         // really want to get rid of this, perhaps call all update functions from JotFile
+
         JotDocument doc = new JotDocument();
         doc.getText().addKeyListener(this);
         doc.getText().getDocument().addDocumentListener(this);
-        console.addActionListener(this);
         tabbedPane.addTab(doc.getName(), doc);
+
+        listModel.insertElementAt("  " + doc.getName(), 0x00);
+        sidebar.setSelectedIndex(0x00);
+
+        console.addActionListener(this);
 
         updateNameJE(doc.getName() + " - " + windowCaption);
         statusStrip = new JotStatusStrip(" " + doc.caption(), new Color(243, 156, 18));
@@ -127,12 +144,6 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
         cont.add(tabbedPane);
         cont.add(jp, BorderLayout.SOUTH);
 
-        JList sidebar = new JList();
-        sidebar.setBackground(new Color(30, 30, 30));
-        sidebar.setForeground(Color.WHITE);
-
-        // frame.add(cont);
-        // frame.add(jp, BorderLayout.SOUTH);
         frame.add(new JotSplitPane(sidebar, cont, 200, 2, false));
     }
 
@@ -207,7 +218,11 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
     public void windowClosing(WindowEvent e) {
         JotDocument doc = (JotDocument) JotEngine.tabbedPane.getSelectedComponent();
         if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-            JotFile.unsavedChanges();
+            if (JotEngine.tabbedPane.getTabCount() == 0x00) {
+                // whut?
+            } else {
+                JotFile.unsavedChanges();
+            }
         }
     }
 }

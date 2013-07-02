@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import org.fife.ui.rtextarea.*;
@@ -54,6 +55,12 @@ public class JotFile {
                 JotEngine.statusStrip.setText(JotUtilities.CLEAN + doc.getName());
                 doc.setDirty(false);
 
+                JotEngine.listModel.insertElementAt(
+                    "  " + doc.getName(), JotEngine.tabbedPane.getTabCount() - 1);
+                JotEngine.sidebar.setSelectedIndex(JotEngine.tabbedPane.getTabCount() - 1);
+
+                // JotEngine.listModel.addElement("  " + doc.getName());
+
                 doc.setPath(fd.getDirectory());
                 // System.out.println(fullPath);
 
@@ -99,6 +106,9 @@ public class JotFile {
             doc.getText().setSyntaxEditingStyle(JotUtilities.applySyntax(extension));
             JotUtilities.applySyntax(extension);
 
+            JotEngine.listModel.setElementAt(
+                "  " + doc.getName(), JotEngine.tabbedPane.getSelectedIndex());
+
             String fullPath = fd.getDirectory() + doc.getName();
             JotEventEngine.updateNameJEE(fullPath + " - " + JotEngine.windowCaption);
             JotEngine.statusStrip.setText(JotUtilities.CLEAN + doc.getName());
@@ -121,13 +131,22 @@ public class JotFile {
         if (JotEngine.tabbedPane.getSelectedIndex() == 0x00) {
             JotEngine.tabbedPane.insertTab(wdoc.getName(), null, wdoc, wdoc.getName(), 1);
             JotEngine.tabbedPane.setSelectedIndex(JotEngine.tabbedPane.getSelectedIndex() + 1);
+
+            JotEngine.listModel.insertElementAt("  " + wdoc.getName(), 1);
+            JotEngine.sidebar.setSelectedIndex(JotEngine.tabbedPane.getTabCount() - 1);
+
         } else if (JotEngine.tabbedPane.getSelectedIndex() > 0) {
             JotEngine.tabbedPane.insertTab(
-                wdoc.getName(), null, wdoc, wdoc.getName(), JotEngine.tabbedPane.getSelectedIndex() + 1
-            );
+                wdoc.getName(), null, wdoc, wdoc.getName(), JotEngine.tabbedPane.getSelectedIndex() + 1);
             JotEngine.tabbedPane.setSelectedIndex(JotEngine.tabbedPane.getSelectedIndex() + 1);
+
+            JotEngine.listModel.addElement(
+                "  " + wdoc.getName());
+            JotEngine.sidebar.setSelectedIndex(JotEngine.tabbedPane.getTabCount() - 1);
         } else {
             JotEngine.tabbedPane.insertTab(wdoc.getName(), null, wdoc, wdoc.getName(), 0x00);
+            JotEngine.listModel.insertElementAt("  " + wdoc.getName(), 0x00);
+            JotEngine.sidebar.setSelectedIndex(0x00);
         }
     }
 
@@ -139,8 +158,15 @@ public class JotFile {
                 if ((JotEngine.tabbedPane.getTabCount()) == 0x00) {
                     JotEngine.tabbedPane.setVisible(false);
                 }
-            } catch (IndexOutOfBoundsException ex) {
 
+                if (JotEngine.tabbedPane.getTabCount() == 0x00) {
+                    JotEngine.listModel.remove(JotEngine.tabbedPane.getSelectedIndex() + 1);
+                } else {
+                    JotEngine.listModel.remove(JotEngine.tabbedPane.getSelectedIndex());
+                }
+
+            } catch (IndexOutOfBoundsException ex) {
+                System.out.println(":)");
             }
         } else if (MODE == 2) {
             // ...

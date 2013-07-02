@@ -14,7 +14,7 @@ public class JotEventEngine {
     public static boolean lineWrap = true;
     public static boolean fullScreen = false;
     public static boolean menuBarVisible = true;
-    public static boolean consoleVisible = true;
+    public static boolean consoleVisible = false;
 
     public static int currentSpaces = 4;
 
@@ -153,6 +153,9 @@ public class JotEventEngine {
         }
 
         JotEngine.statusStrip.setText(" " + doc.getName());
+        JotEngine.sidebar.setSelectedIndex(JotEngine.tabbedPane.getSelectedIndex());
+
+        // todo -- add listener to list to do the same for tabs!
     }
 
     // private int oldIx = -1;

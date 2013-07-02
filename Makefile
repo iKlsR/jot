@@ -6,7 +6,7 @@ jot:
 	src/JotEventEngine.java src/JotFile.java \
 	src/JotDocument.java src/JotTabbedPaneUI.java \
 	src/JotUtilities.java src/JotStatusStrip.java \
-	src/JotConsole.java src/JotSplitPane.java
+	src/JotConsole.java src/JotSplitPane.java src/JotSidebar.java
 .PHONY clean:
 clean:
 	rm -f bin/*.class
