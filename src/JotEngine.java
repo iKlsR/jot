@@ -24,13 +24,16 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.DefaultListModel;
 
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
 
-public class JotEngine implements ActionListener, MouseListener, KeyListener, DocumentListener, WindowListener {
+public class JotEngine implements ActionListener, MouseListener, KeyListener, DocumentListener, WindowListener, ListSelectionListener {
     private static String appName = "Jot";
     private static String buildVersion = "0.0.1";
     private static JPanel jp;
@@ -86,6 +89,7 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
         // this needs its own file soon..
         listModel = new DefaultListModel<String>();
         sidebar = new JotSideBar<String>(listModel);
+        sidebar.addListSelectionListener(this);
 
         // the default tab, don't add any settings here, default settings are in JotDocument
         // really want to get rid of this, perhaps call all update functions from JotFile
@@ -223,6 +227,12 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
             } else {
                 JotFile.unsavedChanges();
             }
+        }
+    }
+
+    public void valueChanged(ListSelectionEvent le) {
+        if (le.getValueIsAdjusting() == false) {
+            JotEngine.tabbedPane.setSelectedIndex(sidebar.getSelectedIndex());
         }
     }
 }
