@@ -1,0 +1,13 @@
+0.0.1
+- Open and save files (if file is already opened or saved, it overwrites)
+- Close / Create tabs (right click tabs for more options)
+- Hex to RGB converter (highlight a hex value and it will return the rgb equivalent)
+- Status strip (visual information about the current document)
+- Console strip (used for typing commands, very limited atm)
+- Hide anything obstructing the text area (console, menubar etc, possibly single tabs in the future)
+- Shows the current language being used (unique to each tab)
+
+0.0.2
+- Added sidebar and synced it with open tabs (it shows list of open files)
+- Console can now do simple "File menu operations"
+- Various interface tweaks
