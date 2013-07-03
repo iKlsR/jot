@@ -11,7 +11,7 @@ I *know* what you are thinking.. another Java Text Editor.. yep. :)
 
 Jot is not the average `JTextArea` however and even though I can't dedicate much time to it atm, I plan to make this evolve into something useful eventually while learning Java.
 
-It is still very, very and I still cannot stress enough, *very* experimental.
+It is still very, very and I still cannot stress enough, *very* experimental. Around **v0.0.4** I will start to shape it up.
 Alot of it so far has just been hacked together, I sort of brainstorm and code at the same time.
 Currently, it is very limited in functionality, most of what is present is constant and there is no way yet to change it,
 the syntax, font etc. All will be addressed in due time.
@@ -25,7 +25,7 @@ Jot makes use of the excellent [RSyntaxTextArea](http://fifesoft.com/rsyntaxtext
 It is under `/lib` along with its LICENSE.
 
 A few of the features that I have been working on that are coming along nicely are:
-- A mini prompt for typing commands *(I don't like mice..)*
+- <del>A mini prompt for typing commands *(I don't like mice..)*</del>
 - <del>Full screen view</del>
 - <del>Autodetect opened/saved syntax</del>
 - Theme switching
@@ -44,3 +44,7 @@ Earlier Days (pre v0.0.1)
 v0.0.1 Release
 -
 ![jot!](http://cl.ly/image/1y1P3q3n0U0f/gui-2.png)
+
+v0.0.2 Release
+-
+![jot!](http://cl.ly/image/2H2w3q2m1O0N/Jot0.0.2.png)
