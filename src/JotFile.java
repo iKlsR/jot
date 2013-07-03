@@ -161,8 +161,15 @@ public class JotFile {
 
                 if (JotEngine.tabbedPane.getTabCount() == 0x00) {
                     JotEngine.listModel.remove(JotEngine.tabbedPane.getSelectedIndex() + 1);
+                    JotEngine.tabbedPane.setSelectedIndex(JotEngine.tabbedPane.getSelectedIndex() + 1);
                 } else {
                     JotEngine.listModel.remove(JotEngine.tabbedPane.getSelectedIndex());
+                }
+
+                if (JotEngine.tabbedPane.getSelectedIndex() < JotEngine.tabbedPane.getTabCount()) {
+                    JotEngine.tabbedPane.setSelectedIndex(JotEngine.tabbedPane.getSelectedIndex());
+                } else if (JotEngine.tabbedPane.getSelectedIndex() == JotEngine.tabbedPane.getTabCount()) {
+                    System.out.println("bingo");
                 }
 
             } catch (IndexOutOfBoundsException ex) {

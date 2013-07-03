@@ -190,6 +190,24 @@ public class JotEventEngine {
                 menuBarVisible = true;
             }
         }
+
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (JotEngine.console.getText() == "new") {
+                JotFile.newFile();
+            } else if (JotEngine.console.getText() == "open") {
+               JotFile.openFile();
+            } else if (JotEngine.console.getText() == "save") {
+                JotFile.saveFile();
+            } else if (JotEngine.console.getText() == "save as") {
+                JotFile.saveFileAs();
+            } else if (JotEngine.console.getText() == "close") {
+                JotFile.closeFile(1);
+            } else if (JotEngine.console.getText() == "exit") {
+                System.exit(0);
+            }
+
+            JotEngine.clearConsole(JotUtilities.WAIT);
+        }
     }
 
     public static void updateNameJEE(String n) {

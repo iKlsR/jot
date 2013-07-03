@@ -40,7 +40,7 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
     public static String windowCaption = appName + " " + buildVersion;
 
     // Dimension defaultSize = new Dimension(1280, 650);
-    Dimension defaultSize = new Dimension(1366, 720);
+    Dimension defaultSize = new Dimension(1366, 727);
 
     public static Timer timer;
     public static JFrame frame;
@@ -85,6 +85,7 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
         jp = new JPanel();
         console = new JotConsole("");
         console.setVisible(false);
+        console.addKeyListener(this);
 
         // this needs its own file soon..
         listModel = new DefaultListModel<String>();
@@ -206,9 +207,8 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
     static class RemindTask extends TimerTask {
         @Override
         public void run() {
-            // System.out.println("hello");
-            // console.setText("> ");
-            // timer.cancel();
+            console.setText("");
+            timer.cancel();
         }
     }
 

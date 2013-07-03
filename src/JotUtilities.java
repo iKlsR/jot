@@ -4,6 +4,8 @@ public class JotUtilities {
     public static String DIRTY = " *";
     public static String CLEAN = " ";
 
+    public static int WAIT = 5;
+
     // will remove these soon..
     public static int hexToR(String h) { return Integer.parseInt(h.substring(0, 2), 16); };
     public static int hexToG(String h) { return Integer.parseInt(h.substring(2, 4), 16); };
