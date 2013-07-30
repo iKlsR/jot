@@ -12,14 +12,12 @@ I *know* what you are thinking.. another Java Text Editor.. yep. :)
 Jot is not the average `JTextArea` however and even though I can't dedicate much time to it atm, I plan to make this evolve into something useful eventually while learning Java.
 
 It is still very, very and I still cannot stress enough, *very* experimental. Around **v0.0.4** I will start to shape it up.
-Alot of it so far has just been hacked together, I sort of brainstorm and code at the same time.
+Alot of it so far has just been hacked together, I kind-of brainstormedand coded at the same time when starting this.
 Currently, it is very limited in functionality, most of what is present is constant and there is no way yet to change it,
 the syntax, font etc. All will be addressed in due time.
 
 I will try to make it as stable as possible each commit so it can be used.
 I have been using a slightly *ahead* version for the past few weeks as my core editor to see what I normally use most and trying to break it.
-
-Currently, most of the buttons are broken.. ;) and it is limited to one open tab at the moment, but you can open and save files.
 
 Jot makes use of the excellent [RSyntaxTextArea](http://fifesoft.com/rsyntaxtextarea/) for highlighting amongst other things, these will be listed in detail soon.
 It is under `/lib` along with its LICENSE.
