@@ -9,31 +9,14 @@ The additional scripts serve no real purpose atm unless on Windows where you can
 
 I *know* what you are thinking.. another Java Text Editor.. yep. :)
 
-Jot is not the average `JTextArea` however and even though I can't dedicate much time to it atm, I plan to make this evolve into something useful eventually while learning Java.
+Jot is not the average `JTextArea` however and even though I can't dedicate much time to it atm, I plan to make this evolve into something useful eventually.
 
 It is still very, very and I still cannot stress enough, *very* experimental. Around **v0.0.4** I will start to shape it up.
-Alot of it so far has just been hacked together, I kind-of brainstormedand coded at the same time when starting this.
-Currently, it is very limited in functionality, most of what is present is constant and there is no way yet to change it,
-the syntax, font etc. All will be addressed in due time.
-
-I will try to make it as stable as possible each commit so it can be used.
-I have been using a slightly *ahead* version for the past few weeks as my core editor to see what I normally use most and trying to break it.
+Alot of it so far has just been hacked together. Currently, it is very limited in functionality, most of what is present is constant and there is no way yet to change it,
+the syntax, theme, font etc. All will be addressed in due time.
 
 Jot makes use of the excellent [RSyntaxTextArea](http://fifesoft.com/rsyntaxtextarea/) for highlighting amongst other things, these will be listed in detail soon.
 It is under `/lib` along with its LICENSE.
-
-A few of the features that I have been working on that are coming along nicely are:
-- <del>A mini prompt for typing commands *(I don't like mice..)*</del>
-- <del>Full screen view</del>
-- <del>Autodetect opened/saved syntax</del>
-- Theme switching
-- Font changer
-- Autocomplete
-- (Find) and Replace
-
-and several other key features that any modern text editor has..
-
-I have never written an editor before, and to undertake such a project in a relatively new language is a bit much, I will try to update whenever I can.
 
 Earlier Days (pre v0.0.1)
 -
