@@ -28,7 +28,7 @@ public class JotComponents {
             this.preferredWidth = pWidth;
         }
 
-        private static int preferredWidth = 245;
+        private static int preferredWidth = 230;
 
         @Override
         public Dimension getPreferredSize() {
@@ -76,6 +76,10 @@ public class JotComponents {
         public static JMenuItem tabsToSpaces = new JMenuItem("Convert Indentation to Spaces");
         public static JMenuItem hexToRGB = new JotMenuItem("HEX to RGB");
 
+    public static JMenu helpMenu = new JMenu("Help");
+        public static JMenuItem source = new JotMenuItem("Get the source");
+        public static JMenuItem about = new JotMenuItem("About Jot");
+
     public static JPopupMenu tabPopupMenu = new JPopupMenu();
         public static JotMenuItem pClose = new JotMenuItem("Close");
         public static JotMenuItem pCloseAll = new JotMenuItem("Close All Except This");
@@ -99,6 +103,7 @@ public class JotComponents {
         };
         JMenuItem [] tabPopupMenuItems = { pClose, pCloseAll, pCloseAllToRight, pNew, pOpen };
         JMenuItem [] docPopupMenuItems = { dCopy, dCut, dPaste, dSelectAll, dHexToRGB };
+        JMenuItem [] helpMenuItems = { source, about };
 
     public JotComponents() {
         ///////////////////////////////////////// Initialize ////////////////////////////////////////
@@ -166,6 +171,13 @@ public class JotComponents {
         optionsMenu.add(indentation);
         optionsMenu.add(hexToRGB);
         menuBar.add(optionsMenu);
+
+        ///////////////////////////////////////// Help Menu ////////////////////////////////////////
+        helpMenu.setMnemonic('H');
+        helpMenu.add(source);
+        helpMenu.addSeparator();
+        helpMenu.add(about);
+        menuBar.add(helpMenu);
 
         ///////////////////////////////////////// Tab Popup Menu ////////////////////////////////////////
         tabPopupMenu.add(pClose);

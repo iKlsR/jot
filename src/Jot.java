@@ -3,6 +3,7 @@ import javax.swing.UIManager;
 
 public class Jot {
     public static void main(String [] args) {
+        // JotUtilities.catchArgs(args);
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {

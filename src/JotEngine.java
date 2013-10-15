@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,14 +34,39 @@ import java.util.TimerTask;
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
 
+class Lbl extends JLabel {
+    Lbl(String msg) {
+        super(msg);
+        setPreferredSize(new Dimension(40, 0x00));
+    }
+
+    Lbl() {
+        setPreferredSize(new Dimension(40, 0x00));
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        super.paintComponent(g2d);
+        g2d.setColor(new Color(52, 152, 219));
+        g2d.fillRect(0x00, 0, 25, 26);
+        int xpoints[] = {25, 25, 33};
+        int ypoints[] = {0, 26, 13};
+        int npoints = 3;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2d.fillPolygon(new Polygon(xpoints, ypoints, npoints));
+    }
+}
+
 public class JotEngine implements ActionListener, MouseListener, KeyListener, DocumentListener, WindowListener, ListSelectionListener {
     private static String appName = "Jot";
     private static String buildVersion = "0.0.1";
     private static JPanel jp;
     public static String windowCaption = appName + " " + buildVersion;
 
-    // Dimension defaultSize = new Dimension(1280, 650);
-    Dimension defaultSize = new Dimension(1366, 727);
+    Dimension defaultSize = new Dimension(1280, 650);
+    // Dimension defaultSize = new Dimension(1366, 727);
 
     public static Timer timer;
     public static JFrame frame;
@@ -49,6 +75,7 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
     public static JotComponents wc;
     public static JotEngine thisThis;
     public static JotConsole console;
+    public static Lbl lbl;
     public static JotStatusStrip statusStrip;
     public static JotStatusStrip docInfoStrip;
     public static JotStatusStrip tempStrip;
@@ -86,6 +113,7 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
         console = new JotConsole("");
         console.setVisible(false);
         console.addKeyListener(this);
+        lbl = new Lbl("Jot");
 
         // this needs its own file soon..
         listModel = new DefaultListModel<String>();
@@ -121,6 +149,7 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
         for (JMenuItem jm : wc.optionMenuItems)     jm.addActionListener(this);
         for (JMenuItem jm : wc.tabPopupMenuItems)   jm.addActionListener(this);
         for (JMenuItem jm : wc.docPopupMenuItems)   jm.addActionListener(this);
+        for (JMenuItem jm : wc.helpMenuItems)       jm.addActionListener(this);
 
         foundation();
     }
@@ -142,7 +171,15 @@ public class JotEngine implements ActionListener, MouseListener, KeyListener, Do
 
         jp.add(langStrip, BorderLayout.EAST);
 
-        jp.add(console, BorderLayout.SOUTH);
+        //
+        // jp.add(console, BorderLayout.SOUTH);
+        JPanel cons = new JPanel();
+        cons.setBackground(new Color(31, 39, 42));
+        cons.setLayout(new BorderLayout());
+        cons.add(lbl, BorderLayout.WEST);
+        cons.add(console);
+        jp.add(cons, BorderLayout.SOUTH);
+        //
 
         JPanel cont = new JPanel();
         cont.setLayout(new BorderLayout());

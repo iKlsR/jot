@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
+import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import javax.swing.JOptionPane;
 
@@ -80,9 +81,11 @@ public class JotEventEngine {
             if (consoleVisible == true) {
                 consoleVisible = false;
                 JotEngine.console.setVisible(false);
+                JotEngine.lbl.setVisible(false);
             } else if (consoleVisible == false) {
                 consoleVisible = true;
                 JotEngine.console.setVisible(true);
+                JotEngine.lbl.setVisible(true);
             }
 
             // a fix?
@@ -102,6 +105,23 @@ public class JotEventEngine {
                 wdoc.getText().setLineWrap(true);
             }
         }
+        // Help Menu
+
+        else if (e.getActionCommand().equalsIgnoreCase("get the source")) {
+            try {
+                java.awt.Desktop d = java.awt.Desktop.getDesktop();
+                d.browse(new java.net.URI("http://github.com/iKlsR/jot"));
+            } catch (Exception ee) {
+
+            }
+        } else if (e.getActionCommand().equalsIgnoreCase("about jot")) {
+            try {
+                new JotDialog(new JFrame(), "About", JotEngine.frame).setVisible(true);;
+            } catch (IllegalArgumentException ie) {
+                System.out.println("...");
+            }
+        }
+
         // Tab Menu
         else if (e.getActionCommand().equalsIgnoreCase("tab width 2")) {
             wdoc.getText().setTabSize(2);

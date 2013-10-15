@@ -1,4 +1,5 @@
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+import org.apache.commons.cli.*;
 
 public class JotUtilities {
     public static String DIRTY = " *";
